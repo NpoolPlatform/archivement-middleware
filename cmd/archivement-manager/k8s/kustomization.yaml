@@ -1,6 +1,6 @@
 resources:
-  - 01-commission-manager.viper.yaml
-  - 02-commission-manager.yaml
+  - 01-archivement-manager.viper.yaml
+  - 02-archivement-manager.yaml
   - 03-strip-prefix.yaml
   - 04-traefik-ingress.yaml
   - 05-traefik-vpn-ingress.yaml

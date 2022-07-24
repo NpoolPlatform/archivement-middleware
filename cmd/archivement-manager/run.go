@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/NpoolPlatform/commission-manager/api"
-	"github.com/NpoolPlatform/commission-manager/pkg/migrator"
+	"github.com/NpoolPlatform/archivement-manager/api"
+	"github.com/NpoolPlatform/archivement-manager/pkg/migrator"
 
 	grpc2 "github.com/NpoolPlatform/go-service-framework/pkg/grpc"
 	"github.com/NpoolPlatform/go-service-framework/pkg/logger"

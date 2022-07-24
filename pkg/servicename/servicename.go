@@ -1,3 +1,3 @@
 package servicename
 
-const ServiceName = "Commission Manager"
+const ServiceName = "Archivement Manager"

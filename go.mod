@@ -1,21 +1,29 @@
-module github.com/NpoolPlatform/commission-manager
+module github.com/NpoolPlatform/archivement-manager
 
 go 1.17
 
 require (
-	github.com/NpoolPlatform/api-manager v0.0.0-20220328101926-8907b2f76c6d
+	github.com/NpoolPlatform/api-manager v0.0.0-20220421114434-bf0e069b0c83
+	github.com/NpoolPlatform/cloud-hashing-inspire v0.0.0-20220724104912-5495b0c02d63
+	github.com/NpoolPlatform/cloud-hashing-order v0.0.0-20220724100245-c13847eff60c
 	github.com/NpoolPlatform/go-service-framework v0.0.0-20220722111225-08c2156ac8bf
-	github.com/NpoolPlatform/message v0.0.0-20220724093247-7d83a0737ff9
+	github.com/NpoolPlatform/ledger-manager v0.0.0-20220724094449-9e03b1cb2968
+	github.com/NpoolPlatform/message v0.0.0-20220724104259-34caa66d02e9
 	github.com/go-resty/resty/v2 v2.7.0
+	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.10.0
+	github.com/shopspring/decimal v1.3.1
 	github.com/streadway/amqp v1.0.0
 	github.com/stretchr/testify v1.7.1
 	github.com/urfave/cli/v2 v2.4.0
+	go.opentelemetry.io/otel v1.8.0
+	go.opentelemetry.io/otel/trace v1.8.0
 	google.golang.org/grpc v1.48.0
 	google.golang.org/protobuf v1.28.0
 )
 
 require (
+	github.com/NpoolPlatform/libent-cruder v0.0.0-20220621110548-8f3f8049ecc5 // indirect
 	github.com/Shonminh/apollo-client v0.4.0 // indirect
 	github.com/armon/go-metrics v0.3.10 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
@@ -29,10 +37,9 @@ require (
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/go-chassis/go-archaius v1.5.3 // indirect
 	github.com/go-chassis/openlog v1.1.3 // indirect
+	github.com/go-logr/logr v1.2.3 // indirect
+	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
-	github.com/google/go-cmp v0.5.8 // indirect
-	github.com/google/uuid v1.3.0 // indirect
-	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0 // indirect
 	github.com/hashicorp/consul/api v1.12.0 // indirect

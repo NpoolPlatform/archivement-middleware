@@ -6,7 +6,7 @@ package api
 import (
 	"context"
 
-	"github.com/NpoolPlatform/commission-manager/pkg/version"
+	"github.com/NpoolPlatform/archivement-manager/pkg/version"
 	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
 	npool "github.com/NpoolPlatform/message/npool"
 	"google.golang.org/grpc/codes"

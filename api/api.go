@@ -3,20 +3,29 @@ package api
 import (
 	"context"
 
-	"github.com/NpoolPlatform/message/npool/commissionmgr"
+	"github.com/NpoolPlatform/message/npool/archivementmgr"
+
+	"github.com/NpoolPlatform/archivement-manager/api/commission"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 )
 
 type Server struct {
-	commissionmgr.UnimplementedCommissionManagerServer
+	archivementmgr.UnimplementedArchivementManagerServer
 }
 
 func Register(server grpc.ServiceRegistrar) {
-	commissionmgr.RegisterCommissionManagerServer(server, &Server{})
+	archivementmgr.RegisterArchivementManagerServer(server, &Server{})
+	commission.Register(server)
 }
 
 func RegisterGateway(mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) error {
-	return commissionmgr.RegisterCommissionManagerHandlerFromEndpoint(context.Background(), mux, endpoint, opts)
+	if err := archivementmgr.RegisterArchivementManagerHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
+		return err
+	}
+	if err := commission.RegisterGateway(mux, endpoint, opts); err != nil {
+		return err
+	}
+	return nil
 }

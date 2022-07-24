@@ -1,15 +1,15 @@
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: commission-manager-traefik-vpn-ingress
+  name: archivement-manager-traefik-vpn-ingress
   namespace: kube-system
   annotations:
-    k8s.kuboard.cn/displayName: commission-manager-traefik-vpn
-    k8s.kuboard.cn/workload: commission-manager-traefik-vpn
+    k8s.kuboard.cn/displayName: archivement-manager-traefik-vpn
+    k8s.kuboard.cn/workload: archivement-manager-traefik-vpn
     kubernetes.io/ingress.class: "traefik-internet-vpn"
     traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
     traefik.ingress.kubernetes.io/router.middlewares:
-      kube-system-strip-commission-manager-prefix@kubernetescrd,
+      kube-system-strip-archivement-manager-prefix@kubernetescrd,
       kube-system-common-headers@kubernetescrd,
       kube-system-headers-appid-to-body@kubernetescrd,
       kube-system-headers-userid-to-body@kubernetescrd,
@@ -21,9 +21,9 @@ spec:
     - host: api.npool.top
       http: &http_rules
         paths:
-          - path: /api/commission
+          - path: /api/archivement
             backend:
-              serviceName: commission-manager
+              serviceName: archivement-manager
               servicePort: 50340
     - host: api.procyon.vip
       http: *http_rules

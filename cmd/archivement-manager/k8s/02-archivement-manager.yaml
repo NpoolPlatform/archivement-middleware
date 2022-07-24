@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: commission-manager
+  name: archivement-manager
   namespace: kube-system
   annotations:
     "sidecar.jaegertracing.io/inject": "true"
@@ -9,19 +9,19 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: commission-manager
+      app: archivement-manager
   template:
     metadata:
       labels:
-        app: commission-manager
+        app: archivement-manager
     spec:
       containers:
-        - name: commission-manager
-          image: uhub.service.ucloud.cn/entropypool/commission-manager:latest
+        - name: archivement-manager
+          image: uhub.service.ucloud.cn/entropypool/archivement-manager:latest
           imagePullPolicy: Always
           volumeMounts:
             - name: service-config
-              mountPath: /etc/CommissionManager
+              mountPath: /etc/ArchivementManager
           env:
             - name: ENV_ENVIRONMENT_TARGET
               valueFrom:
@@ -45,15 +45,15 @@ spec:
       volumes:
         - name: service-config
           configMap:
-            name: commission-manager-config
+            name: archivement-manager-config
             items:
               - key: service-conf
-                path: CommissionManager.viper.yaml
+                path: ArchivementManager.viper.yaml
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: commission-manager
+  name: archivement-manager
   namespace: kube-system
 spec:
   ports:
@@ -70,4 +70,4 @@ spec:
       port: 50343
       targetPort: 50343
   selector:
-    app: commission-manager
+    app: archivement-manager

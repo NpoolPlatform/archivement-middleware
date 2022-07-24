@@ -1,6 +1,6 @@
 ---
 config:
-  hostname: "commission-manager.npool.top"
+  hostname: "archivement-manager.npool.top"
   http_port: 50340
   grpc_port: 50341
   healthz_port: 50342

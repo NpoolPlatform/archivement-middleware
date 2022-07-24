@@ -3,7 +3,7 @@ kind: ServiceMonitor
 metadata:
   labels:
     release: prometheus
-  name: commission-manager
+  name: archivement-manager
   namespace: monitor
 spec:
   endpoints:
@@ -14,4 +14,4 @@ spec:
       - kube-system
   selector:
     matchLabels:
-      app: commission-manager
+      app: archivement-manager

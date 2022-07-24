@@ -1,3 +1,3 @@
 package constant
 
-const ServiceName = "commission-manager.npool.top"
+const ServiceName = "archivement-manager.npool.top"

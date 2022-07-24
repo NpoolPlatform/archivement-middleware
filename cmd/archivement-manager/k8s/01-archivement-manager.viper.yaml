@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: commission-manager-config
+  name: archivement-manager-config
   namespace: kube-system
 data:
   service-conf: |
     config:
-      hostname: "commission-manager.npool.top"
+      hostname: "archivement-manager.npool.top"
       http_port: 50340
       grpc_port: 50341
       healthz_port: 50342

@@ -1,7 +1,7 @@
 package server
 
 import (
-	msg "github.com/NpoolPlatform/commission-manager/pkg/message/message"
+	msg "github.com/NpoolPlatform/archivement-manager/pkg/message/message"
 	msgsrv "github.com/NpoolPlatform/go-service-framework/pkg/rabbitmq/server"
 )
 
