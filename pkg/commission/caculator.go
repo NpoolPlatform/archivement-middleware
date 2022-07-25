@@ -7,9 +7,6 @@ import (
 	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
 	"github.com/shopspring/decimal"
 
-	inspirecli "github.com/NpoolPlatform/cloud-hashing-inspire/pkg/client"
-	inspirepb "github.com/NpoolPlatform/message/npool/cloud-hashing-inspire"
-
 	ordercli "github.com/NpoolPlatform/cloud-hashing-order/pkg/client"
 	orderconst "github.com/NpoolPlatform/cloud-hashing-order/pkg/const"
 	orderpb "github.com/NpoolPlatform/message/npool/cloud-hashing-order"
@@ -20,6 +17,7 @@ import (
 	ledgergeneralpb "github.com/NpoolPlatform/message/npool/ledgermgr/general"
 
 	constant "github.com/NpoolPlatform/archivement-manager/pkg/message/const"
+	"github.com/NpoolPlatform/archivement-manager/pkg/referral"
 
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
@@ -58,30 +56,11 @@ func tryUpdateCommissionLedger(
 	return err
 }
 
+// TODO: calculate commission according to different app commission strategy
 func calculateCommission(ctx context.Context, order *orderpb.Order, payment *orderpb.Payment) error {
-	inviters := []string{payment.UserID}
-	settings := map[string][]*inspirepb.AppPurchaseAmountSetting{}
-
-	curUser := payment.UserID
-
-	for {
-		sets, err := inspirecli.GetAmountSettings(ctx, payment.AppID, curUser)
-		if err != nil {
-			return err
-		}
-
-		settings[curUser] = sets
-
-		invitation, err := inspirecli.GetInvitation(ctx, payment.AppID, curUser)
-		if err != nil {
-			return err
-		}
-		if invitation == nil {
-			break
-		}
-
-		inviters = append(inviters, invitation.InviterID)
-		curUser = invitation.InviterID
+	inviters, settings, err := referral.GetReferrals(ctx, order.AppID, order.UserID)
+	if err != nil {
+		return err
 	}
 
 	percent := uint32(0)
