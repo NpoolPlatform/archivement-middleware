@@ -8,9 +8,9 @@ require (
 	github.com/NpoolPlatform/cloud-hashing-inspire v0.0.0-20220724104912-5495b0c02d63
 	github.com/NpoolPlatform/cloud-hashing-order v0.0.0-20220724100245-c13847eff60c
 	github.com/NpoolPlatform/go-service-framework v0.0.0-20220722111225-08c2156ac8bf
-	github.com/NpoolPlatform/ledger-manager v0.0.0-20220724094449-9e03b1cb2968
+	github.com/NpoolPlatform/ledger-manager v0.0.0-20220725013303-51e65b263313
 	github.com/NpoolPlatform/libent-cruder v0.0.0-20220621110548-8f3f8049ecc5
-	github.com/NpoolPlatform/message v0.0.0-20220724104259-34caa66d02e9
+	github.com/NpoolPlatform/message v0.0.0-20220725032328-4edb2a743f65
 	github.com/go-resty/resty/v2 v2.7.0
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.10.0

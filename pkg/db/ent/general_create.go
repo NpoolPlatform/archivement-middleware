@@ -122,16 +122,30 @@ func (gc *GeneralCreate) SetNillableCoinTypeID(u *uuid.UUID) *GeneralCreate {
 	return gc
 }
 
-// SetUnits sets the "units" field.
-func (gc *GeneralCreate) SetUnits(u uint32) *GeneralCreate {
-	gc.mutation.SetUnits(u)
+// SetTotalUnits sets the "total_units" field.
+func (gc *GeneralCreate) SetTotalUnits(u uint32) *GeneralCreate {
+	gc.mutation.SetTotalUnits(u)
 	return gc
 }
 
-// SetNillableUnits sets the "units" field if the given value is not nil.
-func (gc *GeneralCreate) SetNillableUnits(u *uint32) *GeneralCreate {
+// SetNillableTotalUnits sets the "total_units" field if the given value is not nil.
+func (gc *GeneralCreate) SetNillableTotalUnits(u *uint32) *GeneralCreate {
 	if u != nil {
-		gc.SetUnits(*u)
+		gc.SetTotalUnits(*u)
+	}
+	return gc
+}
+
+// SetSelfUnits sets the "self_units" field.
+func (gc *GeneralCreate) SetSelfUnits(u uint32) *GeneralCreate {
+	gc.mutation.SetSelfUnits(u)
+	return gc
+}
+
+// SetNillableSelfUnits sets the "self_units" field if the given value is not nil.
+func (gc *GeneralCreate) SetNillableSelfUnits(u *uint32) *GeneralCreate {
+	if u != nil {
+		gc.SetSelfUnits(*u)
 	}
 	return gc
 }
@@ -286,9 +300,13 @@ func (gc *GeneralCreate) defaults() error {
 		v := general.DefaultCoinTypeID()
 		gc.mutation.SetCoinTypeID(v)
 	}
-	if _, ok := gc.mutation.Units(); !ok {
-		v := general.DefaultUnits
-		gc.mutation.SetUnits(v)
+	if _, ok := gc.mutation.TotalUnits(); !ok {
+		v := general.DefaultTotalUnits
+		gc.mutation.SetTotalUnits(v)
+	}
+	if _, ok := gc.mutation.SelfUnits(); !ok {
+		v := general.DefaultSelfUnits
+		gc.mutation.SetSelfUnits(v)
 	}
 	if _, ok := gc.mutation.ID(); !ok {
 		if general.DefaultID == nil {
@@ -404,13 +422,21 @@ func (gc *GeneralCreate) createSpec() (*General, *sqlgraph.CreateSpec) {
 		})
 		_node.CoinTypeID = value
 	}
-	if value, ok := gc.mutation.Units(); ok {
+	if value, ok := gc.mutation.TotalUnits(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
 			Type:   field.TypeUint32,
 			Value:  value,
-			Column: general.FieldUnits,
+			Column: general.FieldTotalUnits,
 		})
-		_node.Units = value
+		_node.TotalUnits = value
+	}
+	if value, ok := gc.mutation.SelfUnits(); ok {
+		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: general.FieldSelfUnits,
+		})
+		_node.SelfUnits = value
 	}
 	if value, ok := gc.mutation.Amount(); ok {
 		_spec.Fields = append(_spec.Fields, &sqlgraph.FieldSpec{
@@ -600,27 +626,51 @@ func (u *GeneralUpsert) ClearCoinTypeID() *GeneralUpsert {
 	return u
 }
 
-// SetUnits sets the "units" field.
-func (u *GeneralUpsert) SetUnits(v uint32) *GeneralUpsert {
-	u.Set(general.FieldUnits, v)
+// SetTotalUnits sets the "total_units" field.
+func (u *GeneralUpsert) SetTotalUnits(v uint32) *GeneralUpsert {
+	u.Set(general.FieldTotalUnits, v)
 	return u
 }
 
-// UpdateUnits sets the "units" field to the value that was provided on create.
-func (u *GeneralUpsert) UpdateUnits() *GeneralUpsert {
-	u.SetExcluded(general.FieldUnits)
+// UpdateTotalUnits sets the "total_units" field to the value that was provided on create.
+func (u *GeneralUpsert) UpdateTotalUnits() *GeneralUpsert {
+	u.SetExcluded(general.FieldTotalUnits)
 	return u
 }
 
-// AddUnits adds v to the "units" field.
-func (u *GeneralUpsert) AddUnits(v uint32) *GeneralUpsert {
-	u.Add(general.FieldUnits, v)
+// AddTotalUnits adds v to the "total_units" field.
+func (u *GeneralUpsert) AddTotalUnits(v uint32) *GeneralUpsert {
+	u.Add(general.FieldTotalUnits, v)
 	return u
 }
 
-// ClearUnits clears the value of the "units" field.
-func (u *GeneralUpsert) ClearUnits() *GeneralUpsert {
-	u.SetNull(general.FieldUnits)
+// ClearTotalUnits clears the value of the "total_units" field.
+func (u *GeneralUpsert) ClearTotalUnits() *GeneralUpsert {
+	u.SetNull(general.FieldTotalUnits)
+	return u
+}
+
+// SetSelfUnits sets the "self_units" field.
+func (u *GeneralUpsert) SetSelfUnits(v uint32) *GeneralUpsert {
+	u.Set(general.FieldSelfUnits, v)
+	return u
+}
+
+// UpdateSelfUnits sets the "self_units" field to the value that was provided on create.
+func (u *GeneralUpsert) UpdateSelfUnits() *GeneralUpsert {
+	u.SetExcluded(general.FieldSelfUnits)
+	return u
+}
+
+// AddSelfUnits adds v to the "self_units" field.
+func (u *GeneralUpsert) AddSelfUnits(v uint32) *GeneralUpsert {
+	u.Add(general.FieldSelfUnits, v)
+	return u
+}
+
+// ClearSelfUnits clears the value of the "self_units" field.
+func (u *GeneralUpsert) ClearSelfUnits() *GeneralUpsert {
+	u.SetNull(general.FieldSelfUnits)
 	return u
 }
 
@@ -845,31 +895,59 @@ func (u *GeneralUpsertOne) ClearCoinTypeID() *GeneralUpsertOne {
 	})
 }
 
-// SetUnits sets the "units" field.
-func (u *GeneralUpsertOne) SetUnits(v uint32) *GeneralUpsertOne {
+// SetTotalUnits sets the "total_units" field.
+func (u *GeneralUpsertOne) SetTotalUnits(v uint32) *GeneralUpsertOne {
 	return u.Update(func(s *GeneralUpsert) {
-		s.SetUnits(v)
+		s.SetTotalUnits(v)
 	})
 }
 
-// AddUnits adds v to the "units" field.
-func (u *GeneralUpsertOne) AddUnits(v uint32) *GeneralUpsertOne {
+// AddTotalUnits adds v to the "total_units" field.
+func (u *GeneralUpsertOne) AddTotalUnits(v uint32) *GeneralUpsertOne {
 	return u.Update(func(s *GeneralUpsert) {
-		s.AddUnits(v)
+		s.AddTotalUnits(v)
 	})
 }
 
-// UpdateUnits sets the "units" field to the value that was provided on create.
-func (u *GeneralUpsertOne) UpdateUnits() *GeneralUpsertOne {
+// UpdateTotalUnits sets the "total_units" field to the value that was provided on create.
+func (u *GeneralUpsertOne) UpdateTotalUnits() *GeneralUpsertOne {
 	return u.Update(func(s *GeneralUpsert) {
-		s.UpdateUnits()
+		s.UpdateTotalUnits()
 	})
 }
 
-// ClearUnits clears the value of the "units" field.
-func (u *GeneralUpsertOne) ClearUnits() *GeneralUpsertOne {
+// ClearTotalUnits clears the value of the "total_units" field.
+func (u *GeneralUpsertOne) ClearTotalUnits() *GeneralUpsertOne {
 	return u.Update(func(s *GeneralUpsert) {
-		s.ClearUnits()
+		s.ClearTotalUnits()
+	})
+}
+
+// SetSelfUnits sets the "self_units" field.
+func (u *GeneralUpsertOne) SetSelfUnits(v uint32) *GeneralUpsertOne {
+	return u.Update(func(s *GeneralUpsert) {
+		s.SetSelfUnits(v)
+	})
+}
+
+// AddSelfUnits adds v to the "self_units" field.
+func (u *GeneralUpsertOne) AddSelfUnits(v uint32) *GeneralUpsertOne {
+	return u.Update(func(s *GeneralUpsert) {
+		s.AddSelfUnits(v)
+	})
+}
+
+// UpdateSelfUnits sets the "self_units" field to the value that was provided on create.
+func (u *GeneralUpsertOne) UpdateSelfUnits() *GeneralUpsertOne {
+	return u.Update(func(s *GeneralUpsert) {
+		s.UpdateSelfUnits()
+	})
+}
+
+// ClearSelfUnits clears the value of the "self_units" field.
+func (u *GeneralUpsertOne) ClearSelfUnits() *GeneralUpsertOne {
+	return u.Update(func(s *GeneralUpsert) {
+		s.ClearSelfUnits()
 	})
 }
 
@@ -1264,31 +1342,59 @@ func (u *GeneralUpsertBulk) ClearCoinTypeID() *GeneralUpsertBulk {
 	})
 }
 
-// SetUnits sets the "units" field.
-func (u *GeneralUpsertBulk) SetUnits(v uint32) *GeneralUpsertBulk {
+// SetTotalUnits sets the "total_units" field.
+func (u *GeneralUpsertBulk) SetTotalUnits(v uint32) *GeneralUpsertBulk {
 	return u.Update(func(s *GeneralUpsert) {
-		s.SetUnits(v)
+		s.SetTotalUnits(v)
 	})
 }
 
-// AddUnits adds v to the "units" field.
-func (u *GeneralUpsertBulk) AddUnits(v uint32) *GeneralUpsertBulk {
+// AddTotalUnits adds v to the "total_units" field.
+func (u *GeneralUpsertBulk) AddTotalUnits(v uint32) *GeneralUpsertBulk {
 	return u.Update(func(s *GeneralUpsert) {
-		s.AddUnits(v)
+		s.AddTotalUnits(v)
 	})
 }
 
-// UpdateUnits sets the "units" field to the value that was provided on create.
-func (u *GeneralUpsertBulk) UpdateUnits() *GeneralUpsertBulk {
+// UpdateTotalUnits sets the "total_units" field to the value that was provided on create.
+func (u *GeneralUpsertBulk) UpdateTotalUnits() *GeneralUpsertBulk {
 	return u.Update(func(s *GeneralUpsert) {
-		s.UpdateUnits()
+		s.UpdateTotalUnits()
 	})
 }
 
-// ClearUnits clears the value of the "units" field.
-func (u *GeneralUpsertBulk) ClearUnits() *GeneralUpsertBulk {
+// ClearTotalUnits clears the value of the "total_units" field.
+func (u *GeneralUpsertBulk) ClearTotalUnits() *GeneralUpsertBulk {
 	return u.Update(func(s *GeneralUpsert) {
-		s.ClearUnits()
+		s.ClearTotalUnits()
+	})
+}
+
+// SetSelfUnits sets the "self_units" field.
+func (u *GeneralUpsertBulk) SetSelfUnits(v uint32) *GeneralUpsertBulk {
+	return u.Update(func(s *GeneralUpsert) {
+		s.SetSelfUnits(v)
+	})
+}
+
+// AddSelfUnits adds v to the "self_units" field.
+func (u *GeneralUpsertBulk) AddSelfUnits(v uint32) *GeneralUpsertBulk {
+	return u.Update(func(s *GeneralUpsert) {
+		s.AddSelfUnits(v)
+	})
+}
+
+// UpdateSelfUnits sets the "self_units" field to the value that was provided on create.
+func (u *GeneralUpsertBulk) UpdateSelfUnits() *GeneralUpsertBulk {
+	return u.Update(func(s *GeneralUpsert) {
+		s.UpdateSelfUnits()
+	})
+}
+
+// ClearSelfUnits clears the value of the "self_units" field.
+func (u *GeneralUpsertBulk) ClearSelfUnits() *GeneralUpsertBulk {
+	return u.Update(func(s *GeneralUpsert) {
+		s.ClearSelfUnits()
 	})
 }
 

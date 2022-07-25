@@ -1502,27 +1502,29 @@ func (m *DetailMutation) ResetEdge(name string) error {
 // GeneralMutation represents an operation that mutates the General nodes in the graph.
 type GeneralMutation struct {
 	config
-	op            Op
-	typ           string
-	id            *uuid.UUID
-	created_at    *uint32
-	addcreated_at *int32
-	updated_at    *uint32
-	addupdated_at *int32
-	deleted_at    *uint32
-	adddeleted_at *int32
-	app_id        *uuid.UUID
-	user_id       *uuid.UUID
-	good_id       *uuid.UUID
-	coin_type_id  *uuid.UUID
-	units         *uint32
-	addunits      *int32
-	amount        *decimal.Decimal
-	addamount     *decimal.Decimal
-	clearedFields map[string]struct{}
-	done          bool
-	oldValue      func(context.Context) (*General, error)
-	predicates    []predicate.General
+	op             Op
+	typ            string
+	id             *uuid.UUID
+	created_at     *uint32
+	addcreated_at  *int32
+	updated_at     *uint32
+	addupdated_at  *int32
+	deleted_at     *uint32
+	adddeleted_at  *int32
+	app_id         *uuid.UUID
+	user_id        *uuid.UUID
+	good_id        *uuid.UUID
+	coin_type_id   *uuid.UUID
+	total_units    *uint32
+	addtotal_units *int32
+	self_units     *uint32
+	addself_units  *int32
+	amount         *decimal.Decimal
+	addamount      *decimal.Decimal
+	clearedFields  map[string]struct{}
+	done           bool
+	oldValue       func(context.Context) (*General, error)
+	predicates     []predicate.General
 }
 
 var _ ent.Mutation = (*GeneralMutation)(nil)
@@ -1993,74 +1995,144 @@ func (m *GeneralMutation) ResetCoinTypeID() {
 	delete(m.clearedFields, general.FieldCoinTypeID)
 }
 
-// SetUnits sets the "units" field.
-func (m *GeneralMutation) SetUnits(u uint32) {
-	m.units = &u
-	m.addunits = nil
+// SetTotalUnits sets the "total_units" field.
+func (m *GeneralMutation) SetTotalUnits(u uint32) {
+	m.total_units = &u
+	m.addtotal_units = nil
 }
 
-// Units returns the value of the "units" field in the mutation.
-func (m *GeneralMutation) Units() (r uint32, exists bool) {
-	v := m.units
+// TotalUnits returns the value of the "total_units" field in the mutation.
+func (m *GeneralMutation) TotalUnits() (r uint32, exists bool) {
+	v := m.total_units
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldUnits returns the old "units" field's value of the General entity.
+// OldTotalUnits returns the old "total_units" field's value of the General entity.
 // If the General object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *GeneralMutation) OldUnits(ctx context.Context) (v uint32, err error) {
+func (m *GeneralMutation) OldTotalUnits(ctx context.Context) (v uint32, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldUnits is only allowed on UpdateOne operations")
+		return v, errors.New("OldTotalUnits is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldUnits requires an ID field in the mutation")
+		return v, errors.New("OldTotalUnits requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldUnits: %w", err)
+		return v, fmt.Errorf("querying old value for OldTotalUnits: %w", err)
 	}
-	return oldValue.Units, nil
+	return oldValue.TotalUnits, nil
 }
 
-// AddUnits adds u to the "units" field.
-func (m *GeneralMutation) AddUnits(u int32) {
-	if m.addunits != nil {
-		*m.addunits += u
+// AddTotalUnits adds u to the "total_units" field.
+func (m *GeneralMutation) AddTotalUnits(u int32) {
+	if m.addtotal_units != nil {
+		*m.addtotal_units += u
 	} else {
-		m.addunits = &u
+		m.addtotal_units = &u
 	}
 }
 
-// AddedUnits returns the value that was added to the "units" field in this mutation.
-func (m *GeneralMutation) AddedUnits() (r int32, exists bool) {
-	v := m.addunits
+// AddedTotalUnits returns the value that was added to the "total_units" field in this mutation.
+func (m *GeneralMutation) AddedTotalUnits() (r int32, exists bool) {
+	v := m.addtotal_units
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// ClearUnits clears the value of the "units" field.
-func (m *GeneralMutation) ClearUnits() {
-	m.units = nil
-	m.addunits = nil
-	m.clearedFields[general.FieldUnits] = struct{}{}
+// ClearTotalUnits clears the value of the "total_units" field.
+func (m *GeneralMutation) ClearTotalUnits() {
+	m.total_units = nil
+	m.addtotal_units = nil
+	m.clearedFields[general.FieldTotalUnits] = struct{}{}
 }
 
-// UnitsCleared returns if the "units" field was cleared in this mutation.
-func (m *GeneralMutation) UnitsCleared() bool {
-	_, ok := m.clearedFields[general.FieldUnits]
+// TotalUnitsCleared returns if the "total_units" field was cleared in this mutation.
+func (m *GeneralMutation) TotalUnitsCleared() bool {
+	_, ok := m.clearedFields[general.FieldTotalUnits]
 	return ok
 }
 
-// ResetUnits resets all changes to the "units" field.
-func (m *GeneralMutation) ResetUnits() {
-	m.units = nil
-	m.addunits = nil
-	delete(m.clearedFields, general.FieldUnits)
+// ResetTotalUnits resets all changes to the "total_units" field.
+func (m *GeneralMutation) ResetTotalUnits() {
+	m.total_units = nil
+	m.addtotal_units = nil
+	delete(m.clearedFields, general.FieldTotalUnits)
+}
+
+// SetSelfUnits sets the "self_units" field.
+func (m *GeneralMutation) SetSelfUnits(u uint32) {
+	m.self_units = &u
+	m.addself_units = nil
+}
+
+// SelfUnits returns the value of the "self_units" field in the mutation.
+func (m *GeneralMutation) SelfUnits() (r uint32, exists bool) {
+	v := m.self_units
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldSelfUnits returns the old "self_units" field's value of the General entity.
+// If the General object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *GeneralMutation) OldSelfUnits(ctx context.Context) (v uint32, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldSelfUnits is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldSelfUnits requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldSelfUnits: %w", err)
+	}
+	return oldValue.SelfUnits, nil
+}
+
+// AddSelfUnits adds u to the "self_units" field.
+func (m *GeneralMutation) AddSelfUnits(u int32) {
+	if m.addself_units != nil {
+		*m.addself_units += u
+	} else {
+		m.addself_units = &u
+	}
+}
+
+// AddedSelfUnits returns the value that was added to the "self_units" field in this mutation.
+func (m *GeneralMutation) AddedSelfUnits() (r int32, exists bool) {
+	v := m.addself_units
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// ClearSelfUnits clears the value of the "self_units" field.
+func (m *GeneralMutation) ClearSelfUnits() {
+	m.self_units = nil
+	m.addself_units = nil
+	m.clearedFields[general.FieldSelfUnits] = struct{}{}
+}
+
+// SelfUnitsCleared returns if the "self_units" field was cleared in this mutation.
+func (m *GeneralMutation) SelfUnitsCleared() bool {
+	_, ok := m.clearedFields[general.FieldSelfUnits]
+	return ok
+}
+
+// ResetSelfUnits resets all changes to the "self_units" field.
+func (m *GeneralMutation) ResetSelfUnits() {
+	m.self_units = nil
+	m.addself_units = nil
+	delete(m.clearedFields, general.FieldSelfUnits)
 }
 
 // SetAmount sets the "amount" field.
@@ -2152,7 +2224,7 @@ func (m *GeneralMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *GeneralMutation) Fields() []string {
-	fields := make([]string, 0, 9)
+	fields := make([]string, 0, 10)
 	if m.created_at != nil {
 		fields = append(fields, general.FieldCreatedAt)
 	}
@@ -2174,8 +2246,11 @@ func (m *GeneralMutation) Fields() []string {
 	if m.coin_type_id != nil {
 		fields = append(fields, general.FieldCoinTypeID)
 	}
-	if m.units != nil {
-		fields = append(fields, general.FieldUnits)
+	if m.total_units != nil {
+		fields = append(fields, general.FieldTotalUnits)
+	}
+	if m.self_units != nil {
+		fields = append(fields, general.FieldSelfUnits)
 	}
 	if m.amount != nil {
 		fields = append(fields, general.FieldAmount)
@@ -2202,8 +2277,10 @@ func (m *GeneralMutation) Field(name string) (ent.Value, bool) {
 		return m.GoodID()
 	case general.FieldCoinTypeID:
 		return m.CoinTypeID()
-	case general.FieldUnits:
-		return m.Units()
+	case general.FieldTotalUnits:
+		return m.TotalUnits()
+	case general.FieldSelfUnits:
+		return m.SelfUnits()
 	case general.FieldAmount:
 		return m.Amount()
 	}
@@ -2229,8 +2306,10 @@ func (m *GeneralMutation) OldField(ctx context.Context, name string) (ent.Value,
 		return m.OldGoodID(ctx)
 	case general.FieldCoinTypeID:
 		return m.OldCoinTypeID(ctx)
-	case general.FieldUnits:
-		return m.OldUnits(ctx)
+	case general.FieldTotalUnits:
+		return m.OldTotalUnits(ctx)
+	case general.FieldSelfUnits:
+		return m.OldSelfUnits(ctx)
 	case general.FieldAmount:
 		return m.OldAmount(ctx)
 	}
@@ -2291,12 +2370,19 @@ func (m *GeneralMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetCoinTypeID(v)
 		return nil
-	case general.FieldUnits:
+	case general.FieldTotalUnits:
 		v, ok := value.(uint32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetUnits(v)
+		m.SetTotalUnits(v)
+		return nil
+	case general.FieldSelfUnits:
+		v, ok := value.(uint32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetSelfUnits(v)
 		return nil
 	case general.FieldAmount:
 		v, ok := value.(decimal.Decimal)
@@ -2322,8 +2408,11 @@ func (m *GeneralMutation) AddedFields() []string {
 	if m.adddeleted_at != nil {
 		fields = append(fields, general.FieldDeletedAt)
 	}
-	if m.addunits != nil {
-		fields = append(fields, general.FieldUnits)
+	if m.addtotal_units != nil {
+		fields = append(fields, general.FieldTotalUnits)
+	}
+	if m.addself_units != nil {
+		fields = append(fields, general.FieldSelfUnits)
 	}
 	if m.addamount != nil {
 		fields = append(fields, general.FieldAmount)
@@ -2342,8 +2431,10 @@ func (m *GeneralMutation) AddedField(name string) (ent.Value, bool) {
 		return m.AddedUpdatedAt()
 	case general.FieldDeletedAt:
 		return m.AddedDeletedAt()
-	case general.FieldUnits:
-		return m.AddedUnits()
+	case general.FieldTotalUnits:
+		return m.AddedTotalUnits()
+	case general.FieldSelfUnits:
+		return m.AddedSelfUnits()
 	case general.FieldAmount:
 		return m.AddedAmount()
 	}
@@ -2376,12 +2467,19 @@ func (m *GeneralMutation) AddField(name string, value ent.Value) error {
 		}
 		m.AddDeletedAt(v)
 		return nil
-	case general.FieldUnits:
+	case general.FieldTotalUnits:
 		v, ok := value.(int32)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.AddUnits(v)
+		m.AddTotalUnits(v)
+		return nil
+	case general.FieldSelfUnits:
+		v, ok := value.(int32)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.AddSelfUnits(v)
 		return nil
 	case general.FieldAmount:
 		v, ok := value.(decimal.Decimal)
@@ -2410,8 +2508,11 @@ func (m *GeneralMutation) ClearedFields() []string {
 	if m.FieldCleared(general.FieldCoinTypeID) {
 		fields = append(fields, general.FieldCoinTypeID)
 	}
-	if m.FieldCleared(general.FieldUnits) {
-		fields = append(fields, general.FieldUnits)
+	if m.FieldCleared(general.FieldTotalUnits) {
+		fields = append(fields, general.FieldTotalUnits)
+	}
+	if m.FieldCleared(general.FieldSelfUnits) {
+		fields = append(fields, general.FieldSelfUnits)
 	}
 	if m.FieldCleared(general.FieldAmount) {
 		fields = append(fields, general.FieldAmount)
@@ -2442,8 +2543,11 @@ func (m *GeneralMutation) ClearField(name string) error {
 	case general.FieldCoinTypeID:
 		m.ClearCoinTypeID()
 		return nil
-	case general.FieldUnits:
-		m.ClearUnits()
+	case general.FieldTotalUnits:
+		m.ClearTotalUnits()
+		return nil
+	case general.FieldSelfUnits:
+		m.ClearSelfUnits()
 		return nil
 	case general.FieldAmount:
 		m.ClearAmount()
@@ -2477,8 +2581,11 @@ func (m *GeneralMutation) ResetField(name string) error {
 	case general.FieldCoinTypeID:
 		m.ResetCoinTypeID()
 		return nil
-	case general.FieldUnits:
-		m.ResetUnits()
+	case general.FieldTotalUnits:
+		m.ResetTotalUnits()
+		return nil
+	case general.FieldSelfUnits:
+		m.ResetSelfUnits()
 		return nil
 	case general.FieldAmount:
 		m.ResetAmount()

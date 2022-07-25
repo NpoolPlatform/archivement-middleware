@@ -52,7 +52,11 @@ func (General) Fields() []ent.Field {
 				return uuid.UUID{}
 			}),
 		field.
-			Uint32("units").
+			Uint32("total_units").
+			Optional().
+			Default(0),
+		field.
+			Uint32("self_units").
 			Optional().
 			Default(0),
 		field.

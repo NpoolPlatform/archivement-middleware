@@ -164,30 +164,57 @@ func (gu *GeneralUpdate) ClearCoinTypeID() *GeneralUpdate {
 	return gu
 }
 
-// SetUnits sets the "units" field.
-func (gu *GeneralUpdate) SetUnits(u uint32) *GeneralUpdate {
-	gu.mutation.ResetUnits()
-	gu.mutation.SetUnits(u)
+// SetTotalUnits sets the "total_units" field.
+func (gu *GeneralUpdate) SetTotalUnits(u uint32) *GeneralUpdate {
+	gu.mutation.ResetTotalUnits()
+	gu.mutation.SetTotalUnits(u)
 	return gu
 }
 
-// SetNillableUnits sets the "units" field if the given value is not nil.
-func (gu *GeneralUpdate) SetNillableUnits(u *uint32) *GeneralUpdate {
+// SetNillableTotalUnits sets the "total_units" field if the given value is not nil.
+func (gu *GeneralUpdate) SetNillableTotalUnits(u *uint32) *GeneralUpdate {
 	if u != nil {
-		gu.SetUnits(*u)
+		gu.SetTotalUnits(*u)
 	}
 	return gu
 }
 
-// AddUnits adds u to the "units" field.
-func (gu *GeneralUpdate) AddUnits(u int32) *GeneralUpdate {
-	gu.mutation.AddUnits(u)
+// AddTotalUnits adds u to the "total_units" field.
+func (gu *GeneralUpdate) AddTotalUnits(u int32) *GeneralUpdate {
+	gu.mutation.AddTotalUnits(u)
 	return gu
 }
 
-// ClearUnits clears the value of the "units" field.
-func (gu *GeneralUpdate) ClearUnits() *GeneralUpdate {
-	gu.mutation.ClearUnits()
+// ClearTotalUnits clears the value of the "total_units" field.
+func (gu *GeneralUpdate) ClearTotalUnits() *GeneralUpdate {
+	gu.mutation.ClearTotalUnits()
+	return gu
+}
+
+// SetSelfUnits sets the "self_units" field.
+func (gu *GeneralUpdate) SetSelfUnits(u uint32) *GeneralUpdate {
+	gu.mutation.ResetSelfUnits()
+	gu.mutation.SetSelfUnits(u)
+	return gu
+}
+
+// SetNillableSelfUnits sets the "self_units" field if the given value is not nil.
+func (gu *GeneralUpdate) SetNillableSelfUnits(u *uint32) *GeneralUpdate {
+	if u != nil {
+		gu.SetSelfUnits(*u)
+	}
+	return gu
+}
+
+// AddSelfUnits adds u to the "self_units" field.
+func (gu *GeneralUpdate) AddSelfUnits(u int32) *GeneralUpdate {
+	gu.mutation.AddSelfUnits(u)
+	return gu
+}
+
+// ClearSelfUnits clears the value of the "self_units" field.
+func (gu *GeneralUpdate) ClearSelfUnits() *GeneralUpdate {
+	gu.mutation.ClearSelfUnits()
 	return gu
 }
 
@@ -404,24 +431,44 @@ func (gu *GeneralUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			Column: general.FieldCoinTypeID,
 		})
 	}
-	if value, ok := gu.mutation.Units(); ok {
+	if value, ok := gu.mutation.TotalUnits(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeUint32,
 			Value:  value,
-			Column: general.FieldUnits,
+			Column: general.FieldTotalUnits,
 		})
 	}
-	if value, ok := gu.mutation.AddedUnits(); ok {
+	if value, ok := gu.mutation.AddedTotalUnits(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeUint32,
 			Value:  value,
-			Column: general.FieldUnits,
+			Column: general.FieldTotalUnits,
 		})
 	}
-	if gu.mutation.UnitsCleared() {
+	if gu.mutation.TotalUnitsCleared() {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeUint32,
-			Column: general.FieldUnits,
+			Column: general.FieldTotalUnits,
+		})
+	}
+	if value, ok := gu.mutation.SelfUnits(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: general.FieldSelfUnits,
+		})
+	}
+	if value, ok := gu.mutation.AddedSelfUnits(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: general.FieldSelfUnits,
+		})
+	}
+	if gu.mutation.SelfUnitsCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Column: general.FieldSelfUnits,
 		})
 	}
 	if value, ok := gu.mutation.Amount(); ok {
@@ -598,30 +645,57 @@ func (guo *GeneralUpdateOne) ClearCoinTypeID() *GeneralUpdateOne {
 	return guo
 }
 
-// SetUnits sets the "units" field.
-func (guo *GeneralUpdateOne) SetUnits(u uint32) *GeneralUpdateOne {
-	guo.mutation.ResetUnits()
-	guo.mutation.SetUnits(u)
+// SetTotalUnits sets the "total_units" field.
+func (guo *GeneralUpdateOne) SetTotalUnits(u uint32) *GeneralUpdateOne {
+	guo.mutation.ResetTotalUnits()
+	guo.mutation.SetTotalUnits(u)
 	return guo
 }
 
-// SetNillableUnits sets the "units" field if the given value is not nil.
-func (guo *GeneralUpdateOne) SetNillableUnits(u *uint32) *GeneralUpdateOne {
+// SetNillableTotalUnits sets the "total_units" field if the given value is not nil.
+func (guo *GeneralUpdateOne) SetNillableTotalUnits(u *uint32) *GeneralUpdateOne {
 	if u != nil {
-		guo.SetUnits(*u)
+		guo.SetTotalUnits(*u)
 	}
 	return guo
 }
 
-// AddUnits adds u to the "units" field.
-func (guo *GeneralUpdateOne) AddUnits(u int32) *GeneralUpdateOne {
-	guo.mutation.AddUnits(u)
+// AddTotalUnits adds u to the "total_units" field.
+func (guo *GeneralUpdateOne) AddTotalUnits(u int32) *GeneralUpdateOne {
+	guo.mutation.AddTotalUnits(u)
 	return guo
 }
 
-// ClearUnits clears the value of the "units" field.
-func (guo *GeneralUpdateOne) ClearUnits() *GeneralUpdateOne {
-	guo.mutation.ClearUnits()
+// ClearTotalUnits clears the value of the "total_units" field.
+func (guo *GeneralUpdateOne) ClearTotalUnits() *GeneralUpdateOne {
+	guo.mutation.ClearTotalUnits()
+	return guo
+}
+
+// SetSelfUnits sets the "self_units" field.
+func (guo *GeneralUpdateOne) SetSelfUnits(u uint32) *GeneralUpdateOne {
+	guo.mutation.ResetSelfUnits()
+	guo.mutation.SetSelfUnits(u)
+	return guo
+}
+
+// SetNillableSelfUnits sets the "self_units" field if the given value is not nil.
+func (guo *GeneralUpdateOne) SetNillableSelfUnits(u *uint32) *GeneralUpdateOne {
+	if u != nil {
+		guo.SetSelfUnits(*u)
+	}
+	return guo
+}
+
+// AddSelfUnits adds u to the "self_units" field.
+func (guo *GeneralUpdateOne) AddSelfUnits(u int32) *GeneralUpdateOne {
+	guo.mutation.AddSelfUnits(u)
+	return guo
+}
+
+// ClearSelfUnits clears the value of the "self_units" field.
+func (guo *GeneralUpdateOne) ClearSelfUnits() *GeneralUpdateOne {
+	guo.mutation.ClearSelfUnits()
 	return guo
 }
 
@@ -862,24 +936,44 @@ func (guo *GeneralUpdateOne) sqlSave(ctx context.Context) (_node *General, err e
 			Column: general.FieldCoinTypeID,
 		})
 	}
-	if value, ok := guo.mutation.Units(); ok {
+	if value, ok := guo.mutation.TotalUnits(); ok {
 		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
 			Type:   field.TypeUint32,
 			Value:  value,
-			Column: general.FieldUnits,
+			Column: general.FieldTotalUnits,
 		})
 	}
-	if value, ok := guo.mutation.AddedUnits(); ok {
+	if value, ok := guo.mutation.AddedTotalUnits(); ok {
 		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
 			Type:   field.TypeUint32,
 			Value:  value,
-			Column: general.FieldUnits,
+			Column: general.FieldTotalUnits,
 		})
 	}
-	if guo.mutation.UnitsCleared() {
+	if guo.mutation.TotalUnitsCleared() {
 		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
 			Type:   field.TypeUint32,
-			Column: general.FieldUnits,
+			Column: general.FieldTotalUnits,
+		})
+	}
+	if value, ok := guo.mutation.SelfUnits(); ok {
+		_spec.Fields.Set = append(_spec.Fields.Set, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: general.FieldSelfUnits,
+		})
+	}
+	if value, ok := guo.mutation.AddedSelfUnits(); ok {
+		_spec.Fields.Add = append(_spec.Fields.Add, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Value:  value,
+			Column: general.FieldSelfUnits,
+		})
+	}
+	if guo.mutation.SelfUnitsCleared() {
+		_spec.Fields.Clear = append(_spec.Fields.Clear, &sqlgraph.FieldSpec{
+			Type:   field.TypeUint32,
+			Column: general.FieldSelfUnits,
 		})
 	}
 	if value, ok := guo.mutation.Amount(); ok {

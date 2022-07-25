@@ -18,3 +18,11 @@ func TraceInvoker(span trace.Span, entity, module, invokeName string) trace.Span
 	span.AddEvent(fmt.Sprintf("%v.%v.%v.%v", servicename.ServiceName, entity, module, invokeName))
 	return span
 }
+
+func TraceOffsetLimit(span trace.Span, offset, limit int) trace.Span {
+	span.SetAttributes(
+		attribute.Int("Offset", offset),
+		attribute.Int("Limit", limit),
+	)
+	return span
+}

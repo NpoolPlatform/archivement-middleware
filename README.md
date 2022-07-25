@@ -1,4 +1,4 @@
-# Npool ledger manager
+# Npool archivement manager
 
 [![Test](https://github.com/NpoolPlatform/archivement-manager/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/NpoolPlatform/archivement-manager/actions/workflows/main.yml)
 

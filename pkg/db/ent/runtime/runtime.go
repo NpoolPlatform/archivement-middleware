@@ -126,10 +126,14 @@ func init() {
 	generalDescCoinTypeID := generalFields[4].Descriptor()
 	// general.DefaultCoinTypeID holds the default value on creation for the coin_type_id field.
 	general.DefaultCoinTypeID = generalDescCoinTypeID.Default.(func() uuid.UUID)
-	// generalDescUnits is the schema descriptor for units field.
-	generalDescUnits := generalFields[5].Descriptor()
-	// general.DefaultUnits holds the default value on creation for the units field.
-	general.DefaultUnits = generalDescUnits.Default.(uint32)
+	// generalDescTotalUnits is the schema descriptor for total_units field.
+	generalDescTotalUnits := generalFields[5].Descriptor()
+	// general.DefaultTotalUnits holds the default value on creation for the total_units field.
+	general.DefaultTotalUnits = generalDescTotalUnits.Default.(uint32)
+	// generalDescSelfUnits is the schema descriptor for self_units field.
+	generalDescSelfUnits := generalFields[6].Descriptor()
+	// general.DefaultSelfUnits holds the default value on creation for the self_units field.
+	general.DefaultSelfUnits = generalDescSelfUnits.Default.(uint32)
 	// generalDescID is the schema descriptor for id field.
 	generalDescID := generalFields[0].Descriptor()
 	// general.DefaultID holds the default value on creation for the id field.

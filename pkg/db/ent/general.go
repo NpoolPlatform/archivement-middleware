@@ -31,8 +31,10 @@ type General struct {
 	GoodID uuid.UUID `json:"good_id,omitempty"`
 	// CoinTypeID holds the value of the "coin_type_id" field.
 	CoinTypeID uuid.UUID `json:"coin_type_id,omitempty"`
-	// Units holds the value of the "units" field.
-	Units uint32 `json:"units,omitempty"`
+	// TotalUnits holds the value of the "total_units" field.
+	TotalUnits uint32 `json:"total_units,omitempty"`
+	// SelfUnits holds the value of the "self_units" field.
+	SelfUnits uint32 `json:"self_units,omitempty"`
 	// Amount holds the value of the "amount" field.
 	Amount decimal.Decimal `json:"amount,omitempty"`
 }
@@ -44,7 +46,7 @@ func (*General) scanValues(columns []string) ([]interface{}, error) {
 		switch columns[i] {
 		case general.FieldAmount:
 			values[i] = new(decimal.Decimal)
-		case general.FieldCreatedAt, general.FieldUpdatedAt, general.FieldDeletedAt, general.FieldUnits:
+		case general.FieldCreatedAt, general.FieldUpdatedAt, general.FieldDeletedAt, general.FieldTotalUnits, general.FieldSelfUnits:
 			values[i] = new(sql.NullInt64)
 		case general.FieldID, general.FieldAppID, general.FieldUserID, general.FieldGoodID, general.FieldCoinTypeID:
 			values[i] = new(uuid.UUID)
@@ -111,11 +113,17 @@ func (ge *General) assignValues(columns []string, values []interface{}) error {
 			} else if value != nil {
 				ge.CoinTypeID = *value
 			}
-		case general.FieldUnits:
+		case general.FieldTotalUnits:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field units", values[i])
+				return fmt.Errorf("unexpected type %T for field total_units", values[i])
 			} else if value.Valid {
-				ge.Units = uint32(value.Int64)
+				ge.TotalUnits = uint32(value.Int64)
+			}
+		case general.FieldSelfUnits:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field self_units", values[i])
+			} else if value.Valid {
+				ge.SelfUnits = uint32(value.Int64)
 			}
 		case general.FieldAmount:
 			if value, ok := values[i].(*decimal.Decimal); !ok {
@@ -165,8 +173,10 @@ func (ge *General) String() string {
 	builder.WriteString(fmt.Sprintf("%v", ge.GoodID))
 	builder.WriteString(", coin_type_id=")
 	builder.WriteString(fmt.Sprintf("%v", ge.CoinTypeID))
-	builder.WriteString(", units=")
-	builder.WriteString(fmt.Sprintf("%v", ge.Units))
+	builder.WriteString(", total_units=")
+	builder.WriteString(fmt.Sprintf("%v", ge.TotalUnits))
+	builder.WriteString(", self_units=")
+	builder.WriteString(fmt.Sprintf("%v", ge.SelfUnits))
 	builder.WriteString(", amount=")
 	builder.WriteString(fmt.Sprintf("%v", ge.Amount))
 	builder.WriteByte(')')

@@ -141,10 +141,17 @@ func CoinTypeID(v uuid.UUID) predicate.General {
 	})
 }
 
-// Units applies equality check predicate on the "units" field. It's identical to UnitsEQ.
-func Units(v uint32) predicate.General {
+// TotalUnits applies equality check predicate on the "total_units" field. It's identical to TotalUnitsEQ.
+func TotalUnits(v uint32) predicate.General {
 	return predicate.General(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldUnits), v))
+		s.Where(sql.EQ(s.C(FieldTotalUnits), v))
+	})
+}
+
+// SelfUnits applies equality check predicate on the "self_units" field. It's identical to SelfUnitsEQ.
+func SelfUnits(v uint32) predicate.General {
+	return predicate.General(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldSelfUnits), v))
 	})
 }
 
@@ -743,22 +750,22 @@ func CoinTypeIDNotNil() predicate.General {
 	})
 }
 
-// UnitsEQ applies the EQ predicate on the "units" field.
-func UnitsEQ(v uint32) predicate.General {
+// TotalUnitsEQ applies the EQ predicate on the "total_units" field.
+func TotalUnitsEQ(v uint32) predicate.General {
 	return predicate.General(func(s *sql.Selector) {
-		s.Where(sql.EQ(s.C(FieldUnits), v))
+		s.Where(sql.EQ(s.C(FieldTotalUnits), v))
 	})
 }
 
-// UnitsNEQ applies the NEQ predicate on the "units" field.
-func UnitsNEQ(v uint32) predicate.General {
+// TotalUnitsNEQ applies the NEQ predicate on the "total_units" field.
+func TotalUnitsNEQ(v uint32) predicate.General {
 	return predicate.General(func(s *sql.Selector) {
-		s.Where(sql.NEQ(s.C(FieldUnits), v))
+		s.Where(sql.NEQ(s.C(FieldTotalUnits), v))
 	})
 }
 
-// UnitsIn applies the In predicate on the "units" field.
-func UnitsIn(vs ...uint32) predicate.General {
+// TotalUnitsIn applies the In predicate on the "total_units" field.
+func TotalUnitsIn(vs ...uint32) predicate.General {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -770,12 +777,12 @@ func UnitsIn(vs ...uint32) predicate.General {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.In(s.C(FieldUnits), v...))
+		s.Where(sql.In(s.C(FieldTotalUnits), v...))
 	})
 }
 
-// UnitsNotIn applies the NotIn predicate on the "units" field.
-func UnitsNotIn(vs ...uint32) predicate.General {
+// TotalUnitsNotIn applies the NotIn predicate on the "total_units" field.
+func TotalUnitsNotIn(vs ...uint32) predicate.General {
 	v := make([]interface{}, len(vs))
 	for i := range v {
 		v[i] = vs[i]
@@ -787,49 +794,139 @@ func UnitsNotIn(vs ...uint32) predicate.General {
 			s.Where(sql.False())
 			return
 		}
-		s.Where(sql.NotIn(s.C(FieldUnits), v...))
+		s.Where(sql.NotIn(s.C(FieldTotalUnits), v...))
 	})
 }
 
-// UnitsGT applies the GT predicate on the "units" field.
-func UnitsGT(v uint32) predicate.General {
+// TotalUnitsGT applies the GT predicate on the "total_units" field.
+func TotalUnitsGT(v uint32) predicate.General {
 	return predicate.General(func(s *sql.Selector) {
-		s.Where(sql.GT(s.C(FieldUnits), v))
+		s.Where(sql.GT(s.C(FieldTotalUnits), v))
 	})
 }
 
-// UnitsGTE applies the GTE predicate on the "units" field.
-func UnitsGTE(v uint32) predicate.General {
+// TotalUnitsGTE applies the GTE predicate on the "total_units" field.
+func TotalUnitsGTE(v uint32) predicate.General {
 	return predicate.General(func(s *sql.Selector) {
-		s.Where(sql.GTE(s.C(FieldUnits), v))
+		s.Where(sql.GTE(s.C(FieldTotalUnits), v))
 	})
 }
 
-// UnitsLT applies the LT predicate on the "units" field.
-func UnitsLT(v uint32) predicate.General {
+// TotalUnitsLT applies the LT predicate on the "total_units" field.
+func TotalUnitsLT(v uint32) predicate.General {
 	return predicate.General(func(s *sql.Selector) {
-		s.Where(sql.LT(s.C(FieldUnits), v))
+		s.Where(sql.LT(s.C(FieldTotalUnits), v))
 	})
 }
 
-// UnitsLTE applies the LTE predicate on the "units" field.
-func UnitsLTE(v uint32) predicate.General {
+// TotalUnitsLTE applies the LTE predicate on the "total_units" field.
+func TotalUnitsLTE(v uint32) predicate.General {
 	return predicate.General(func(s *sql.Selector) {
-		s.Where(sql.LTE(s.C(FieldUnits), v))
+		s.Where(sql.LTE(s.C(FieldTotalUnits), v))
 	})
 }
 
-// UnitsIsNil applies the IsNil predicate on the "units" field.
-func UnitsIsNil() predicate.General {
+// TotalUnitsIsNil applies the IsNil predicate on the "total_units" field.
+func TotalUnitsIsNil() predicate.General {
 	return predicate.General(func(s *sql.Selector) {
-		s.Where(sql.IsNull(s.C(FieldUnits)))
+		s.Where(sql.IsNull(s.C(FieldTotalUnits)))
 	})
 }
 
-// UnitsNotNil applies the NotNil predicate on the "units" field.
-func UnitsNotNil() predicate.General {
+// TotalUnitsNotNil applies the NotNil predicate on the "total_units" field.
+func TotalUnitsNotNil() predicate.General {
 	return predicate.General(func(s *sql.Selector) {
-		s.Where(sql.NotNull(s.C(FieldUnits)))
+		s.Where(sql.NotNull(s.C(FieldTotalUnits)))
+	})
+}
+
+// SelfUnitsEQ applies the EQ predicate on the "self_units" field.
+func SelfUnitsEQ(v uint32) predicate.General {
+	return predicate.General(func(s *sql.Selector) {
+		s.Where(sql.EQ(s.C(FieldSelfUnits), v))
+	})
+}
+
+// SelfUnitsNEQ applies the NEQ predicate on the "self_units" field.
+func SelfUnitsNEQ(v uint32) predicate.General {
+	return predicate.General(func(s *sql.Selector) {
+		s.Where(sql.NEQ(s.C(FieldSelfUnits), v))
+	})
+}
+
+// SelfUnitsIn applies the In predicate on the "self_units" field.
+func SelfUnitsIn(vs ...uint32) predicate.General {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.General(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.In(s.C(FieldSelfUnits), v...))
+	})
+}
+
+// SelfUnitsNotIn applies the NotIn predicate on the "self_units" field.
+func SelfUnitsNotIn(vs ...uint32) predicate.General {
+	v := make([]interface{}, len(vs))
+	for i := range v {
+		v[i] = vs[i]
+	}
+	return predicate.General(func(s *sql.Selector) {
+		// if not arguments were provided, append the FALSE constants,
+		// since we can't apply "IN ()". This will make this predicate falsy.
+		if len(v) == 0 {
+			s.Where(sql.False())
+			return
+		}
+		s.Where(sql.NotIn(s.C(FieldSelfUnits), v...))
+	})
+}
+
+// SelfUnitsGT applies the GT predicate on the "self_units" field.
+func SelfUnitsGT(v uint32) predicate.General {
+	return predicate.General(func(s *sql.Selector) {
+		s.Where(sql.GT(s.C(FieldSelfUnits), v))
+	})
+}
+
+// SelfUnitsGTE applies the GTE predicate on the "self_units" field.
+func SelfUnitsGTE(v uint32) predicate.General {
+	return predicate.General(func(s *sql.Selector) {
+		s.Where(sql.GTE(s.C(FieldSelfUnits), v))
+	})
+}
+
+// SelfUnitsLT applies the LT predicate on the "self_units" field.
+func SelfUnitsLT(v uint32) predicate.General {
+	return predicate.General(func(s *sql.Selector) {
+		s.Where(sql.LT(s.C(FieldSelfUnits), v))
+	})
+}
+
+// SelfUnitsLTE applies the LTE predicate on the "self_units" field.
+func SelfUnitsLTE(v uint32) predicate.General {
+	return predicate.General(func(s *sql.Selector) {
+		s.Where(sql.LTE(s.C(FieldSelfUnits), v))
+	})
+}
+
+// SelfUnitsIsNil applies the IsNil predicate on the "self_units" field.
+func SelfUnitsIsNil() predicate.General {
+	return predicate.General(func(s *sql.Selector) {
+		s.Where(sql.IsNull(s.C(FieldSelfUnits)))
+	})
+}
+
+// SelfUnitsNotNil applies the NotNil predicate on the "self_units" field.
+func SelfUnitsNotNil() predicate.General {
+	return predicate.General(func(s *sql.Selector) {
+		s.Where(sql.NotNull(s.C(FieldSelfUnits)))
 	})
 }
 

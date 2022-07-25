@@ -60,7 +60,8 @@ var schemaGraph = func() *sqlgraph.Schema {
 			general.FieldUserID:     {Type: field.TypeUUID, Column: general.FieldUserID},
 			general.FieldGoodID:     {Type: field.TypeUUID, Column: general.FieldGoodID},
 			general.FieldCoinTypeID: {Type: field.TypeUUID, Column: general.FieldCoinTypeID},
-			general.FieldUnits:      {Type: field.TypeUint32, Column: general.FieldUnits},
+			general.FieldTotalUnits: {Type: field.TypeUint32, Column: general.FieldTotalUnits},
+			general.FieldSelfUnits:  {Type: field.TypeUint32, Column: general.FieldSelfUnits},
 			general.FieldAmount:     {Type: field.TypeFloat64, Column: general.FieldAmount},
 		},
 	}
@@ -256,9 +257,14 @@ func (f *GeneralFilter) WhereCoinTypeID(p entql.ValueP) {
 	f.Where(p.Field(general.FieldCoinTypeID))
 }
 
-// WhereUnits applies the entql uint32 predicate on the units field.
-func (f *GeneralFilter) WhereUnits(p entql.Uint32P) {
-	f.Where(p.Field(general.FieldUnits))
+// WhereTotalUnits applies the entql uint32 predicate on the total_units field.
+func (f *GeneralFilter) WhereTotalUnits(p entql.Uint32P) {
+	f.Where(p.Field(general.FieldTotalUnits))
+}
+
+// WhereSelfUnits applies the entql uint32 predicate on the self_units field.
+func (f *GeneralFilter) WhereSelfUnits(p entql.Uint32P) {
+	f.Where(p.Field(general.FieldSelfUnits))
 }
 
 // WhereAmount applies the entql float64 predicate on the amount field.

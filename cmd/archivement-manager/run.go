@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/NpoolPlatform/archivement-manager/api"
+	"github.com/NpoolPlatform/archivement-manager/pkg/db"
 	"github.com/NpoolPlatform/archivement-manager/pkg/migrator"
 
 	grpc2 "github.com/NpoolPlatform/go-service-framework/pkg/grpc"
@@ -24,6 +25,10 @@ var runCmd = &cli.Command{
 	Usage:   "Run the daemon",
 	Action: func(c *cli.Context) error {
 		if err := migrator.Migrate(c.Context); err != nil {
+			return err
+		}
+
+		if err := db.Init(); err != nil {
 			return err
 		}
 
