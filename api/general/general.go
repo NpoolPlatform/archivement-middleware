@@ -91,6 +91,39 @@ func (s *Server) CreateGenerals(ctx context.Context, in *npool.CreateGeneralsReq
 	}, nil
 }
 
+func (s *Server) AddGeneral(ctx context.Context, in *npool.AddGeneralRequest) (*npool.AddGeneralResponse, error) {
+	var err error
+
+	_, span := otel.Tracer(constant.ServiceName).Start(ctx, "GetGeneral")
+	defer span.End()
+
+	defer func() {
+		if err != nil {
+			span.SetStatus(scodes.Error, err.Error())
+			span.RecordError(err)
+		}
+	}()
+
+	span = commontracer.TraceID(span, in.GetInfo().GetID())
+
+	_, err = uuid.Parse(in.GetInfo().GetID())
+	if err != nil {
+		return &npool.AddGeneralResponse{}, status.Error(codes.InvalidArgument, err.Error())
+	}
+
+	span = commontracer.TraceInvoker(span, "general", "crud", "AddFields")
+
+	info, err := crud.AddFields(ctx, in.GetInfo())
+	if err != nil {
+		logger.Sugar().Errorw("AddGeneral", "error", err)
+		return &npool.AddGeneralResponse{}, status.Error(codes.InvalidArgument, err.Error())
+	}
+
+	return &npool.AddGeneralResponse{
+		Info: converter.Ent2Grpc(info),
+	}, nil
+}
+
 func (s *Server) GetGeneral(ctx context.Context, in *npool.GetGeneralRequest) (*npool.GetGeneralResponse, error) {
 	var err error
 
