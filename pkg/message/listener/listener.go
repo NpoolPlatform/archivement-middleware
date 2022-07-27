@@ -1,8 +1,8 @@
 package listener
 
 import (
-	msgcli "github.com/NpoolPlatform/archivement-manager/pkg/message/client"
-	msg "github.com/NpoolPlatform/archivement-manager/pkg/message/message"
+	msgcli "github.com/NpoolPlatform/archivement-middleware/pkg/message/client"
+	msg "github.com/NpoolPlatform/archivement-middleware/pkg/message/message"
 	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
 )
 

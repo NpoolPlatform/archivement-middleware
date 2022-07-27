@@ -1,17 +1,17 @@
-module github.com/NpoolPlatform/archivement-manager
+module github.com/NpoolPlatform/archivement-middleware
 
 go 1.17
 
 require (
-	entgo.io/ent v0.10.1
 	github.com/NpoolPlatform/api-manager v0.0.0-20220421114434-bf0e069b0c83
+	github.com/NpoolPlatform/archivement-manager v0.0.0-20220726091005-369a8a1d351e
 	github.com/NpoolPlatform/cloud-hashing-goods v0.0.0-20220725072531-4aa2ed56923c
 	github.com/NpoolPlatform/cloud-hashing-inspire v0.0.0-20220724104912-5495b0c02d63
 	github.com/NpoolPlatform/cloud-hashing-order v0.0.0-20220724100245-c13847eff60c
 	github.com/NpoolPlatform/go-service-framework v0.0.0-20220722111225-08c2156ac8bf
 	github.com/NpoolPlatform/ledger-manager v0.0.0-20220725013303-51e65b263313
 	github.com/NpoolPlatform/libent-cruder v0.0.0-20220621110548-8f3f8049ecc5
-	github.com/NpoolPlatform/message v0.0.0-20220725060000-8aa65440c2b7
+	github.com/NpoolPlatform/message v0.0.0-20220727083414-3b3fc95f917a
 	github.com/go-resty/resty/v2 v2.7.0
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.10.0
@@ -27,6 +27,7 @@ require (
 
 require (
 	ariga.io/atlas v0.3.7-0.20220303204946-787354f533c3 // indirect
+	entgo.io/ent v0.10.1 // indirect
 	github.com/Shonminh/apollo-client v0.4.0 // indirect
 	github.com/agext/levenshtein v1.2.1 // indirect
 	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect

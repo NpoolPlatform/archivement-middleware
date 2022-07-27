@@ -86,7 +86,7 @@ pipeline {
       steps {
         sh (returnStdout: false, script: '''
           devboxpod=`kubectl get pods -A | grep development-box | head -n1 | awk '{print $2}'`
-          servicename="archivement-manager"
+          servicename="archivement-middleware"
 
           kubectl exec --namespace kube-system $devboxpod -- make -C /tmp/$servicename after-test || true
           kubectl exec --namespace kube-system $devboxpod -- rm -rf /tmp/$servicename || true
@@ -242,7 +242,7 @@ pipeline {
       steps {
         sh 'TAG=latest DOCKER_REGISTRY=$DOCKER_REGISTRY make release-docker-images'
         sh(returnStdout: false, script: '''
-          images=`docker images | grep entropypool | grep archivement-manager | grep none | awk '{ print $3 }'`
+          images=`docker images | grep entropypool | grep archivement-middleware | grep none | awk '{ print $3 }'`
           for image in $images; do
             docker rmi $image -f
           done
@@ -260,7 +260,7 @@ pipeline {
           tag=`git describe --tags $revlist`
 
           set +e
-          docker images | grep archivement-manager | grep $tag
+          docker images | grep archivement-middleware | grep $tag
           rc=$?
           set -e
           if [ 0 -eq $rc ]; then
@@ -287,7 +287,7 @@ pipeline {
           tag=$major.$minor.$patch
 
           set +e
-          docker images | grep archivement-manager | grep $tag
+          docker images | grep archivement-middleware | grep $tag
           rc=$?
           set -e
           if [ 0 -eq $rc ]; then
@@ -303,7 +303,7 @@ pipeline {
         expression { TARGET_ENV ==~ /.*development.*/ }
       }
       steps {
-        sh 'sed -i "s/uhub.service.ucloud.cn/$DOCKER_REGISTRY/g" cmd/archivement-manager/k8s/02-archivement-manager.yaml'
+        sh 'sed -i "s/uhub.service.ucloud.cn/$DOCKER_REGISTRY/g" cmd/archivement-middleware/k8s/02-archivement-middleware.yaml'
         sh 'TAG=latest make deploy-to-k8s-cluster'
       }
     }
@@ -320,8 +320,8 @@ pipeline {
 
           git reset --hard
           git checkout $tag
-          sed -i "s/archivement-manager:latest/archivement-manager:$tag/g" cmd/archivement-manager/k8s/02-archivement-manager.yaml
-          sed -i "s/uhub.service.ucloud.cn/$DOCKER_REGISTRY/g" cmd/archivement-manager/k8s/02-archivement-manager.yaml
+          sed -i "s/archivement-middleware:latest/archivement-middleware:$tag/g" cmd/archivement-middleware/k8s/02-archivement-middleware.yaml
+          sed -i "s/uhub.service.ucloud.cn/$DOCKER_REGISTRY/g" cmd/archivement-middleware/k8s/02-archivement-middleware.yaml
           TAG=$tag make deploy-to-k8s-cluster
         '''.stripIndent())
       }
@@ -345,8 +345,8 @@ pipeline {
 
           git reset --hard
           git checkout $tag
-          sed -i "s/archivement-manager:latest/archivement-manager:$tag/g" cmd/archivement-manager/k8s/02-archivement-manager.yaml
-          sed -i "s/uhub.service.ucloud.cn/$DOCKER_REGISTRY/g" cmd/archivement-manager/k8s/02-archivement-manager.yaml
+          sed -i "s/archivement-middleware:latest/archivement-middleware:$tag/g" cmd/archivement-middleware/k8s/02-archivement-middleware.yaml
+          sed -i "s/uhub.service.ucloud.cn/$DOCKER_REGISTRY/g" cmd/archivement-middleware/k8s/02-archivement-middleware.yaml
           TAG=$tag make deploy-to-k8s-cluster
         '''.stripIndent())
       }

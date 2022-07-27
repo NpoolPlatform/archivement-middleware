@@ -22,8 +22,8 @@ import (
 	detailcrud "github.com/NpoolPlatform/archivement-manager/pkg/crud/detail"
 	generalcrud "github.com/NpoolPlatform/archivement-manager/pkg/crud/general"
 
-	constant "github.com/NpoolPlatform/archivement-manager/pkg/message/const"
-	"github.com/NpoolPlatform/archivement-manager/pkg/referral"
+	constant "github.com/NpoolPlatform/archivement-middleware/pkg/message/const"
+	"github.com/NpoolPlatform/archivement-middleware/pkg/referral"
 
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"

@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"time"
 
-	constant "github.com/NpoolPlatform/archivement-manager/pkg/message/const"
+	constant "github.com/NpoolPlatform/archivement-middleware/pkg/message/const"
 	grpc2 "github.com/NpoolPlatform/go-service-framework/pkg/grpc"
 	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	npool "github.com/NpoolPlatform/message/npool/archivementmgr/commission"
+	npool "github.com/NpoolPlatform/message/npool/archivementmw/commission"
 )
 
 func do(ctx context.Context, fn func(_ctx context.Context, cli npool.CommissionClient) (cruder.Any, error)) (cruder.Any, error) {

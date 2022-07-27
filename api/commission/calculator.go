@@ -5,11 +5,11 @@ import (
 
 	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
 
-	commission "github.com/NpoolPlatform/archivement-manager/pkg/commission"
-	constant "github.com/NpoolPlatform/archivement-manager/pkg/message/const"
-	tracer "github.com/NpoolPlatform/archivement-manager/pkg/tracer"
+	commission "github.com/NpoolPlatform/archivement-middleware/pkg/commission"
+	constant "github.com/NpoolPlatform/archivement-middleware/pkg/message/const"
+	tracer "github.com/NpoolPlatform/archivement-middleware/pkg/tracer"
 
-	npool "github.com/NpoolPlatform/message/npool/archivementmgr/commission"
+	npool "github.com/NpoolPlatform/message/npool/archivementmw/commission"
 
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"

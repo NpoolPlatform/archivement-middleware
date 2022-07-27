@@ -1,0 +1,11 @@
+---
+config:
+  hostname: "archivement-middleware.npool.top"
+  http_port: 50370
+  grpc_port: 50371
+  healthz_port: 50372
+  prometheus_port: 50373
+  appid: "89089012783789789719823798127398"
+  serviceid: "e1230e5e-0b30-11ed-a574-72e9de4b20f6"
+  logdir: "./"
+  apolloAccessKey: "0147fb70b815403790e8634b899fac07"

@@ -16,8 +16,8 @@ import (
 	ledgerdetailpb "github.com/NpoolPlatform/message/npool/ledgermgr/detail"
 	ledgergeneralpb "github.com/NpoolPlatform/message/npool/ledgermgr/general"
 
-	constant "github.com/NpoolPlatform/archivement-manager/pkg/message/const"
-	"github.com/NpoolPlatform/archivement-manager/pkg/referral"
+	constant "github.com/NpoolPlatform/archivement-middleware/pkg/message/const"
+	"github.com/NpoolPlatform/archivement-middleware/pkg/referral"
 
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"

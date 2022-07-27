@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	npool "github.com/NpoolPlatform/message/npool/archivementmgr/commission"
+	npool "github.com/NpoolPlatform/message/npool/archivementmw/commission"
 )
 
 func (s *Server) CreateAppUserGoodCommissions(

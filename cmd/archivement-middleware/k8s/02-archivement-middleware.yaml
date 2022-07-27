@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: archivement-middleware
+  namespace: kube-system
+  annotations:
+    "sidecar.jaegertracing.io/inject": "true"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: archivement-middleware
+  template:
+    metadata:
+      labels:
+        app: archivement-middleware
+    spec:
+      containers:
+        - name: archivement-middleware
+          image: uhub.service.ucloud.cn/entropypool/archivement-middleware:latest
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: service-config
+              mountPath: /etc/ArchivementMiddleware
+          env:
+            - name: ENV_ENVIRONMENT_TARGET
+              valueFrom:
+                configMapKeyRef:
+                  name: system-environment
+                  key: environment.target
+            - name: ENV_CONSUL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: system-environment
+                  key: environment.consul_host
+            - name: ENV_CONSUL_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: system-environment
+                  key: environment.consul_port
+            - name: ENV_CLUSTER_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+      volumes:
+        - name: service-config
+          configMap:
+            name: archivement-middleware-config
+            items:
+              - key: service-conf
+                path: ArchivementMiddleware.viper.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: archivement-middleware
+  namespace: kube-system
+spec:
+  ports:
+    - name: http
+      port: 50370
+      targetPort: 50370
+    - name: grpc
+      port: 50371
+      targetPort: 50371
+    - name: healthz
+      port: 50372
+      targetPort: 50372
+    - name: prometheus
+      port: 50373
+      targetPort: 50373
+  selector:
+    app: archivement-middleware

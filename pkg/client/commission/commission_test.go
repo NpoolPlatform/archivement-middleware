@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/NpoolPlatform/archivement-manager/pkg/testinit"
+	"github.com/NpoolPlatform/archivement-middleware/pkg/testinit"
 )
 
 func init() {
