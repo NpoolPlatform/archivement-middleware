@@ -16,8 +16,12 @@ import (
 	ledgerdetailpb "github.com/NpoolPlatform/message/npool/ledgermgr/detail"
 	ledgergeneralpb "github.com/NpoolPlatform/message/npool/ledgermgr/general"
 
+	commonpb "github.com/NpoolPlatform/message/npool"
+
 	constant "github.com/NpoolPlatform/archivement-middleware/pkg/message/const"
 	"github.com/NpoolPlatform/archivement-middleware/pkg/referral"
+
+	"github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
@@ -35,7 +39,40 @@ func tryUpdateCommissionLedger(
 	ioType := ledgerdetailpb.IOType_Incoming
 	ioSubType := ledgerdetailpb.IOSubType_Commission
 
-	_, err := ledgerdetailcli.CreateDetail(ctx, &ledgerdetailpb.DetailReq{
+	detail, err := ledgerdetailcli.GetDetailOnly(ctx, &ledgerdetailpb.Conds{
+		AppID: &commonpb.StringVal{
+			Op:    cruder.EQ,
+			Value: appID,
+		},
+		UserID: &commonpb.StringVal{
+			Op:    cruder.EQ,
+			Value: userID,
+		},
+		CoinTypeID: &commonpb.StringVal{
+			Op:    cruder.EQ,
+			Value: coinTypeID,
+		},
+		IOType: &commonpb.Int32Val{
+			Op:    cruder.EQ,
+			Value: int32(ioType),
+		},
+		IOSubType: &commonpb.Int32Val{
+			Op:    cruder.EQ,
+			Value: int32(ioSubType),
+		},
+		IOExtra: &commonpb.StringVal{
+			Op:    cruder.LIKE,
+			Value: orderID,
+		},
+	})
+	if err != nil {
+		return err
+	}
+	if detail != nil {
+		return fmt.Errorf("commission already exist")
+	}
+
+	_, err = ledgerdetailcli.CreateDetail(ctx, &ledgerdetailpb.DetailReq{
 		AppID:      &appID,
 		UserID:     &userID,
 		CoinTypeID: &coinTypeID,
