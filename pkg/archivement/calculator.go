@@ -19,8 +19,8 @@ import (
 	detailpb "github.com/NpoolPlatform/message/npool/archivementmgr/detail"
 	generalpb "github.com/NpoolPlatform/message/npool/archivementmgr/general"
 
-	detailcrud "github.com/NpoolPlatform/archivement-manager/pkg/crud/detail"
-	generalcrud "github.com/NpoolPlatform/archivement-manager/pkg/crud/general"
+	detailcli "github.com/NpoolPlatform/archivement-manager/pkg/client/detail"
+	generalcli "github.com/NpoolPlatform/archivement-manager/pkg/client/general"
 
 	constant "github.com/NpoolPlatform/archivement-middleware/pkg/message/const"
 	"github.com/NpoolPlatform/archivement-middleware/pkg/referral"
@@ -43,7 +43,7 @@ func calculateArchivement(ctx context.Context, order *orderpb.Order, payment *or
 	for _, inviter := range inviters {
 		myInviter := inviter
 
-		_, err = detailcrud.Create(ctx, &detailpb.DetailReq{
+		_, err = detailcli.CreateDetail(ctx, &detailpb.DetailReq{
 			AppID:                  &payment.AppID,
 			UserID:                 &myInviter,
 			GoodID:                 &order.GoodID,
@@ -60,7 +60,7 @@ func calculateArchivement(ctx context.Context, order *orderpb.Order, payment *or
 			return err
 		}
 
-		general, err := generalcrud.RowOnly(ctx, &generalpb.Conds{
+		general, err := generalcli.GetGeneralOnly(ctx, &generalpb.Conds{
 			AppID: &commonpb.StringVal{
 				Op:    cruder.EQ,
 				Value: payment.AppID,
@@ -88,24 +88,20 @@ func calculateArchivement(ctx context.Context, order *orderpb.Order, payment *or
 		}
 
 		if general == nil {
-			_, err = generalcrud.Create(ctx, &generalpb.GeneralReq{
+			general, err = generalcli.CreateGeneral(ctx, &generalpb.GeneralReq{
 				AppID:      &payment.AppID,
 				UserID:     &myInviter,
 				GoodID:     &order.GoodID,
 				CoinTypeID: &good.CoinInfoID,
-				Amount:     &amount,
-				TotalUnits: &order.Units,
-				SelfUnits:  &selfUnits,
 			})
 			if err != nil {
 				return err
 			}
-			continue
 		}
 
-		generalID := general.ID.String()
+		generalID := general.ID
 
-		_, err = generalcrud.AddFields(ctx, &generalpb.GeneralReq{
+		_, err = generalcli.AddGeneral(ctx, &generalpb.GeneralReq{
 			ID:         &generalID,
 			Amount:     &amount,
 			TotalUnits: &order.Units,
