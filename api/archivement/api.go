@@ -1,7 +1,7 @@
 package archivement
 
 import (
-	"github.com/NpoolPlatform/message/npool/archivementmw/archivement"
+	"github.com/NpoolPlatform/message/npool/archivement/mw/v1/archivement"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"

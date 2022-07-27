@@ -3,7 +3,7 @@ package api
 import (
 	"context"
 
-	"github.com/NpoolPlatform/message/npool/archivementmw"
+	archivementmw "github.com/NpoolPlatform/message/npool/archivement/mw/v1"
 
 	"github.com/NpoolPlatform/archivement-middleware/api/archivement"
 	"github.com/NpoolPlatform/archivement-middleware/api/commission"

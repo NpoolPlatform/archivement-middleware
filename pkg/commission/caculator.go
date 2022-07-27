@@ -13,8 +13,8 @@ import (
 
 	ledgerdetailcli "github.com/NpoolPlatform/ledger-manager/pkg/client/detail"
 	ledgergeneralcli "github.com/NpoolPlatform/ledger-manager/pkg/client/general"
-	ledgerdetailpb "github.com/NpoolPlatform/message/npool/ledgermgr/detail"
-	ledgergeneralpb "github.com/NpoolPlatform/message/npool/ledgermgr/general"
+	ledgerdetailpb "github.com/NpoolPlatform/message/npool/ledger/mgr/v1/detail"
+	ledgergeneralpb "github.com/NpoolPlatform/message/npool/ledger/mgr/v1/general"
 
 	commonpb "github.com/NpoolPlatform/message/npool"
 

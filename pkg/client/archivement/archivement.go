@@ -8,7 +8,7 @@ import (
 	constant "github.com/NpoolPlatform/archivement-middleware/pkg/message/const"
 	grpc2 "github.com/NpoolPlatform/go-service-framework/pkg/grpc"
 	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	npool "github.com/NpoolPlatform/message/npool/archivementmw/archivement"
+	npool "github.com/NpoolPlatform/message/npool/archivement/mw/v1/archivement"
 )
 
 func do(ctx context.Context, fn func(_ctx context.Context, cli npool.ArchivementClient) (cruder.Any, error)) (cruder.Any, error) {

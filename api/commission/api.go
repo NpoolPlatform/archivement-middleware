@@ -3,7 +3,7 @@ package commission
 import (
 	"context"
 
-	"github.com/NpoolPlatform/message/npool/archivementmw/commission"
+	"github.com/NpoolPlatform/message/npool/archivement/mw/v1/commission"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"

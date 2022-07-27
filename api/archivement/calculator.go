@@ -9,7 +9,7 @@ import (
 	constant "github.com/NpoolPlatform/archivement-middleware/pkg/message/const"
 	tracer "github.com/NpoolPlatform/archivement-middleware/pkg/tracer"
 
-	npool "github.com/NpoolPlatform/message/npool/archivementmw/archivement"
+	npool "github.com/NpoolPlatform/message/npool/archivement/mw/v1/archivement"
 
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
