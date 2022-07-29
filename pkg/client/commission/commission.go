@@ -8,10 +8,10 @@ import (
 	constant "github.com/NpoolPlatform/archivement-middleware/pkg/message/const"
 	grpc2 "github.com/NpoolPlatform/go-service-framework/pkg/grpc"
 	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	npool "github.com/NpoolPlatform/message/npool/archivement/mw/v1/commission"
+	npool "github.com/NpoolPlatform/message/npool/inspire/mw/v1/archivement/commission"
 )
 
-func do(ctx context.Context, fn func(_ctx context.Context, cli npool.CommissionClient) (cruder.Any, error)) (cruder.Any, error) {
+func do(ctx context.Context, fn func(_ctx context.Context, cli npool.MiddlewareClient) (cruder.Any, error)) (cruder.Any, error) {
 	_ctx, cancel := context.WithTimeout(ctx, 10*time.Second) //nolint
 	defer cancel()
 
@@ -21,13 +21,13 @@ func do(ctx context.Context, fn func(_ctx context.Context, cli npool.CommissionC
 	}
 	defer conn.Close()
 
-	cli := npool.NewCommissionClient(conn)
+	cli := npool.NewMiddlewareClient(conn)
 
 	return fn(_ctx, cli)
 }
 
 func CalculateCommission(ctx context.Context, orderID string) error {
-	_, err := do(ctx, func(_ctx context.Context, cli npool.CommissionClient) (cruder.Any, error) {
+	_, err := do(ctx, func(_ctx context.Context, cli npool.MiddlewareClient) (cruder.Any, error) {
 		_, err := cli.CalculateOrderCommission(ctx, &npool.CalculateOrderCommissionRequest{
 			OrderID: orderID,
 		})

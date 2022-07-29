@@ -1,22 +1,20 @@
 package commission
 
 import (
-	"context"
-
-	"github.com/NpoolPlatform/message/npool/archivement/mw/v1/commission"
+	"github.com/NpoolPlatform/message/npool/inspire/mw/v1/archivement/commission"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 )
 
 type Server struct {
-	commission.UnimplementedCommissionServer
+	commission.UnimplementedMiddlewareServer
 }
 
 func Register(server grpc.ServiceRegistrar) {
-	commission.RegisterCommissionServer(server, &Server{})
+	commission.RegisterMiddlewareServer(server, &Server{})
 }
 
 func RegisterGateway(mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) error {
-	return commission.RegisterCommissionHandlerFromEndpoint(context.Background(), mux, endpoint, opts)
+	return nil
 }

@@ -8,10 +8,10 @@ import (
 	constant "github.com/NpoolPlatform/archivement-middleware/pkg/message/const"
 	grpc2 "github.com/NpoolPlatform/go-service-framework/pkg/grpc"
 	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
-	npool "github.com/NpoolPlatform/message/npool/archivement/mw/v1/archivement"
+	npool "github.com/NpoolPlatform/message/npool/inspire/mw/v1/archivement/archivement"
 )
 
-func do(ctx context.Context, fn func(_ctx context.Context, cli npool.ArchivementClient) (cruder.Any, error)) (cruder.Any, error) {
+func do(ctx context.Context, fn func(_ctx context.Context, cli npool.MiddlewareClient) (cruder.Any, error)) (cruder.Any, error) {
 	_ctx, cancel := context.WithTimeout(ctx, 10*time.Second) //nolint
 	defer cancel()
 
@@ -21,13 +21,13 @@ func do(ctx context.Context, fn func(_ctx context.Context, cli npool.Archivement
 	}
 	defer conn.Close()
 
-	cli := npool.NewArchivementClient(conn)
+	cli := npool.NewMiddlewareClient(conn)
 
 	return fn(_ctx, cli)
 }
 
 func CalculateArchivement(ctx context.Context, orderID string) error {
-	_, err := do(ctx, func(_ctx context.Context, cli npool.ArchivementClient) (cruder.Any, error) {
+	_, err := do(ctx, func(_ctx context.Context, cli npool.MiddlewareClient) (cruder.Any, error) {
 		_, err := cli.CalculateOrderArchivement(ctx, &npool.CalculateOrderArchivementRequest{
 			OrderID: orderID,
 		})

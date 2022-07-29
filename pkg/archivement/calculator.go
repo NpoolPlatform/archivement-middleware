@@ -16,8 +16,8 @@ import (
 	goodspb "github.com/NpoolPlatform/message/npool/cloud-hashing-goods"
 
 	commonpb "github.com/NpoolPlatform/message/npool"
-	detailpb "github.com/NpoolPlatform/message/npool/archivement/mgr/v1/detail"
-	generalpb "github.com/NpoolPlatform/message/npool/archivement/mgr/v1/general"
+	detailpb "github.com/NpoolPlatform/message/npool/inspire/mgr/v1/archivement/detail"
+	generalpb "github.com/NpoolPlatform/message/npool/inspire/mgr/v1/archivement/general"
 
 	detailcli "github.com/NpoolPlatform/archivement-manager/pkg/client/detail"
 	generalcli "github.com/NpoolPlatform/archivement-manager/pkg/client/general"
