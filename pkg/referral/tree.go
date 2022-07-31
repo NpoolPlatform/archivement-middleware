@@ -8,9 +8,10 @@ import (
 )
 
 func GetReferrals(
-	ctx context.Context,
-	appID, userID string,
-) (inviters []string, settings map[string][]*inspirepb.AppPurchaseAmountSetting, err error) {
+	ctx context.Context, appID, userID string,
+) (
+	inviters []string, settings map[string][]*inspirepb.AppPurchaseAmountSetting, err error,
+) {
 	curUser := userID
 
 	settings = map[string][]*inspirepb.AppPurchaseAmountSetting{}

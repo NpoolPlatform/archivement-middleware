@@ -30,18 +30,39 @@ import (
 	scodes "go.opentelemetry.io/otel/codes"
 )
 
-func calculateArchivement(ctx context.Context, order *orderpb.Order, payment *orderpb.Payment, good *goodspb.GoodInfo) error {
-	inviters, _, err := referral.GetReferrals(ctx, order.AppID, order.UserID)
+func calculateArchivement(ctx context.Context, order *orderpb.Order, payment *orderpb.Payment, good *goodspb.GoodInfo) error { //nolint
+	inviters, settings, err := referral.GetReferrals(ctx, order.AppID, order.UserID)
 	if err != nil {
 		return err
 	}
 
-	amount := decimal.NewFromFloat(payment.Amount).String()
+	amountD := decimal.NewFromFloat(payment.Amount)
+	amount := amountD.String()
 	usdAmount := decimal.NewFromFloat(payment.Amount).Mul(decimal.NewFromFloat(payment.CoinUSDCurrency)).String()
 	currency := decimal.NewFromFloat(payment.CoinUSDCurrency).String()
 
+	subPercent := uint32(0)
+
 	for _, inviter := range inviters {
 		myInviter := inviter
+
+		commissionD := decimal.NewFromInt(0)
+
+		sets, ok := settings[inviter]
+		if ok {
+			for _, set := range sets {
+				if set.Start <= payment.CreateAt && (set.End == 0 || payment.CreateAt <= set.End) && subPercent < set.Percent {
+					commissionD = commissionD.
+						Add(amountD.Mul(
+							decimal.NewFromInt(int64(set.Percent - subPercent))).
+							Div(decimal.NewFromInt(100))) //nolint
+					subPercent = set.Percent
+					break
+				}
+			}
+		}
+
+		commission := commissionD.String()
 
 		_, err = detailcli.CreateDetail(ctx, &detailpb.DetailReq{
 			AppID:                  &payment.AppID,
@@ -54,6 +75,7 @@ func calculateArchivement(ctx context.Context, order *orderpb.Order, payment *or
 			PaymentCoinUSDCurrency: &currency,
 			Units:                  &order.Units,
 			Amount:                 &amount,
+			Commission:             &commission,
 			USDAmount:              &usdAmount,
 		})
 		if err != nil {
@@ -83,9 +105,17 @@ func calculateArchivement(ctx context.Context, order *orderpb.Order, payment *or
 		}
 
 		selfUnits := uint32(0)
+		selfAmountD := decimal.NewFromInt(0)
+		selfCommissionD := decimal.NewFromInt(0)
+
 		if inviter == payment.UserID {
 			selfUnits = order.Units
+			selfAmountD = selfAmountD.Add(amountD)
+			selfCommissionD = selfCommissionD.Add(commissionD)
 		}
+
+		selfAmount := selfAmountD.String()
+		selfCommission := selfCommissionD.String()
 
 		if general == nil {
 			general, err = generalcli.CreateGeneral(ctx, &generalpb.GeneralReq{
@@ -102,10 +132,13 @@ func calculateArchivement(ctx context.Context, order *orderpb.Order, payment *or
 		generalID := general.ID
 
 		_, err = generalcli.AddGeneral(ctx, &generalpb.GeneralReq{
-			ID:         &generalID,
-			Amount:     &amount,
-			TotalUnits: &order.Units,
-			SelfUnits:  &selfUnits,
+			ID:              &generalID,
+			TotalAmount:     &amount,
+			SelfAmount:      &selfAmount,
+			TotalUnits:      &order.Units,
+			SelfUnits:       &selfUnits,
+			TotalCommission: &commission,
+			SelfCommission:  &selfCommission,
 		})
 		if err != nil {
 			return err
