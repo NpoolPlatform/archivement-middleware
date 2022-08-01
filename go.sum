@@ -61,8 +61,8 @@ github.com/DATA-DOG/go-sqlmock v1.5.0/go.mod h1:f/Ixk793poVmq4qj/V1dPUg2JEAKC73Q
 github.com/DataDog/datadog-go v3.2.0+incompatible/go.mod h1:LButxg5PwREeZtORoXG3tL4fMGNddJ+vMq1mwgfaqoQ=
 github.com/NpoolPlatform/api-manager v0.0.0-20220421114434-bf0e069b0c83 h1:eCBDqxMZ80eHjjFVX7M9UwMq8mOqRvkkuvQco4WAHaE=
 github.com/NpoolPlatform/api-manager v0.0.0-20220421114434-bf0e069b0c83/go.mod h1:Z7h/p6Dsv0WaS2Ig3esHVtoIcv1xC9vXVIs2PK6kM8o=
-github.com/NpoolPlatform/archivement-manager v0.0.0-20220729151418-57ff1efcdbc0 h1:SA4/U/51sjbP5Khicbi/o2dT21jI+370Wc/ixLuLS4Y=
-github.com/NpoolPlatform/archivement-manager v0.0.0-20220729151418-57ff1efcdbc0/go.mod h1:ImmAAO7X4ORGNmpEJ/ja6mRBvwDF0YserjNovQqIQvQ=
+github.com/NpoolPlatform/archivement-manager v0.0.0-20220801034348-93adc949f278 h1:rupLO82k1eRQO075qkD2o5uF7qumgrfQ3iJ0Jy9R718=
+github.com/NpoolPlatform/archivement-manager v0.0.0-20220801034348-93adc949f278/go.mod h1:xv1p/OXCovgiZlmeA+06TiGGaBVGaPSLOvKsP4k8srs=
 github.com/NpoolPlatform/cloud-hashing-goods v0.0.0-20220725072531-4aa2ed56923c h1:MswbdRZU2hfmWShYHEPtG84Y3q1ISdMqWksqq6Qsw1g=
 github.com/NpoolPlatform/cloud-hashing-goods v0.0.0-20220725072531-4aa2ed56923c/go.mod h1:aFvLR1M7HtXB2A0hyC7q83/H8WPv9jJaw30XrhSKNFI=
 github.com/NpoolPlatform/cloud-hashing-inspire v0.0.0-20220724104912-5495b0c02d63 h1:7An2Wwkz+eiRWPiHdkdT8f1lMMfQveFJUsTSO76Tai8=
