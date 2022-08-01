@@ -38,7 +38,8 @@ func calculateArchivement(ctx context.Context, order *orderpb.Order, payment *or
 
 	amountD := decimal.NewFromFloat(payment.Amount)
 	amount := amountD.String()
-	usdAmount := decimal.NewFromFloat(payment.Amount).Mul(decimal.NewFromFloat(payment.CoinUSDCurrency)).String()
+	usdAmountD := decimal.NewFromFloat(payment.Amount).Mul(decimal.NewFromFloat(payment.CoinUSDCurrency))
+	usdAmount := usdAmountD.String()
 	currency := decimal.NewFromFloat(payment.CoinUSDCurrency).String()
 
 	subPercent := uint32(0)
@@ -53,7 +54,7 @@ func calculateArchivement(ctx context.Context, order *orderpb.Order, payment *or
 			for _, set := range sets {
 				if set.Start <= payment.CreateAt && (set.End == 0 || payment.CreateAt <= set.End) && subPercent < set.Percent {
 					commissionD = commissionD.
-						Add(amountD.Mul(
+						Add(usdAmountD.Mul(
 							decimal.NewFromInt(int64(set.Percent - subPercent))).
 							Div(decimal.NewFromInt(100))) //nolint
 					subPercent = set.Percent
@@ -110,7 +111,7 @@ func calculateArchivement(ctx context.Context, order *orderpb.Order, payment *or
 
 		if inviter == payment.UserID {
 			selfUnits = order.Units
-			selfAmountD = selfAmountD.Add(amountD)
+			selfAmountD = selfAmountD.Add(usdAmountD)
 			selfCommissionD = selfCommissionD.Add(commissionD)
 		}
 
@@ -133,7 +134,7 @@ func calculateArchivement(ctx context.Context, order *orderpb.Order, payment *or
 
 		_, err = generalcli.AddGeneral(ctx, &generalpb.GeneralReq{
 			ID:              &generalID,
-			TotalAmount:     &amount,
+			TotalAmount:     &usdAmount,
 			SelfAmount:      &selfAmount,
 			TotalUnits:      &order.Units,
 			SelfUnits:       &selfUnits,
