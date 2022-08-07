@@ -4,14 +4,11 @@ go 1.17
 
 require (
 	github.com/NpoolPlatform/api-manager v0.0.0-20220421114434-bf0e069b0c83
-	github.com/NpoolPlatform/archivement-manager v0.0.0-20220801034348-93adc949f278
-	github.com/NpoolPlatform/cloud-hashing-goods v0.0.0-20220725072531-4aa2ed56923c
+	github.com/NpoolPlatform/archivement-manager v0.0.0-20220807172210-33ec808ccd6c
 	github.com/NpoolPlatform/cloud-hashing-inspire v0.0.0-20220724104912-5495b0c02d63
-	github.com/NpoolPlatform/cloud-hashing-order v0.0.0-20220724100245-c13847eff60c
 	github.com/NpoolPlatform/go-service-framework v0.0.0-20220722111225-08c2156ac8bf
-	github.com/NpoolPlatform/ledger-manager v0.0.0-20220731090115-b20794cf8236
 	github.com/NpoolPlatform/libent-cruder v0.0.0-20220621110548-8f3f8049ecc5
-	github.com/NpoolPlatform/message v0.0.0-20220731082357-95a1f030535b
+	github.com/NpoolPlatform/message v0.0.0-20220807174528-a8ac0f4f956f
 	github.com/go-resty/resty/v2 v2.7.0
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.10.0
@@ -26,7 +23,11 @@ require (
 )
 
 require (
+	ariga.io/atlas v0.3.7-0.20220303204946-787354f533c3 // indirect
+	entgo.io/ent v0.10.1 // indirect
 	github.com/Shonminh/apollo-client v0.4.0 // indirect
+	github.com/agext/levenshtein v1.2.1 // indirect
+	github.com/apparentlymart/go-textseg/v13 v13.0.0 // indirect
 	github.com/armon/go-metrics v0.3.10 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash v1.1.0 // indirect
@@ -35,13 +36,18 @@ require (
 	github.com/coocood/freecache v1.0.1 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/go-chassis/go-archaius v1.5.3 // indirect
 	github.com/go-chassis/openlog v1.1.3 // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
+	github.com/go-openapi/inflect v0.19.0 // indirect
+	github.com/go-redis/redis/v8 v8.11.4 // indirect
+	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/google/go-cmp v0.5.8 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0 // indirect
 	github.com/hashicorp/consul/api v1.12.0 // indirect
@@ -53,12 +59,14 @@ require (
 	github.com/hashicorp/go-rootcerts v1.0.2 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
+	github.com/hashicorp/hcl/v2 v2.10.0 // indirect
 	github.com/hashicorp/serf v0.9.7 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
+	github.com/mitchellh/go-wordwrap v0.0.0-20150314170334-ad45545899c7 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.0 // indirect
@@ -75,10 +83,12 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.11.0 // indirect
 	github.com/subosito/gotenv v1.2.0 // indirect
+	github.com/zclconf/go-cty v1.8.0 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.7.0 // indirect
 	go.uber.org/ratelimit v0.1.0 // indirect
 	go.uber.org/zap v1.19.1 // indirect
+	golang.org/x/mod v0.6.0-dev.0.20220106191415-9b9b3d81d5e3 // indirect
 	golang.org/x/net v0.0.0-20220412020605-290c469a71a5 // indirect
 	golang.org/x/sys v0.0.0-20220615213510-4f61da869c0c // indirect
 	golang.org/x/text v0.3.7 // indirect

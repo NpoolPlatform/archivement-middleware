@@ -3,33 +3,22 @@ package api
 import (
 	"context"
 
-	archivementmw "github.com/NpoolPlatform/message/npool/inspire/mw/v1/archivement"
-
-	"github.com/NpoolPlatform/archivement-middleware/api/archivement"
-	"github.com/NpoolPlatform/archivement-middleware/api/commission"
+	"github.com/NpoolPlatform/message/npool/inspire/mw/v1/archivement"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"google.golang.org/grpc"
 )
 
 type Server struct {
-	archivementmw.UnimplementedMiddlewareServer
+	archivement.UnimplementedMiddlewareServer
 }
 
 func Register(server grpc.ServiceRegistrar) {
-	archivementmw.RegisterMiddlewareServer(server, &Server{})
-	commission.Register(server)
-	archivement.Register(server)
+	archivement.RegisterMiddlewareServer(server, &Server{})
 }
 
 func RegisterGateway(mux *runtime.ServeMux, endpoint string, opts []grpc.DialOption) error {
-	if err := archivementmw.RegisterMiddlewareHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
-		return err
-	}
-	if err := commission.RegisterGateway(mux, endpoint, opts); err != nil {
-		return err
-	}
-	if err := archivement.RegisterGateway(mux, endpoint, opts); err != nil {
+	if err := archivement.RegisterMiddlewareHandlerFromEndpoint(context.Background(), mux, endpoint, opts); err != nil {
 		return err
 	}
 	return nil
