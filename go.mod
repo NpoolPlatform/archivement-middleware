@@ -6,7 +6,7 @@ require (
 	github.com/NpoolPlatform/api-manager v0.0.0-20220421114434-bf0e069b0c83
 	github.com/NpoolPlatform/archivement-manager v0.0.0-20220807172210-33ec808ccd6c
 	github.com/NpoolPlatform/cloud-hashing-inspire v0.0.0-20220724104912-5495b0c02d63
-	github.com/NpoolPlatform/go-service-framework v0.0.0-20220722111225-08c2156ac8bf
+	github.com/NpoolPlatform/go-service-framework v0.0.0-20220807091054-871fc936ff5e
 	github.com/NpoolPlatform/libent-cruder v0.0.0-20220621110548-8f3f8049ecc5
 	github.com/NpoolPlatform/message v0.0.0-20220807174528-a8ac0f4f956f
 	github.com/go-resty/resty/v2 v2.7.0
@@ -84,6 +84,9 @@ require (
 	github.com/spf13/viper v1.11.0 // indirect
 	github.com/subosito/gotenv v1.2.0 // indirect
 	github.com/zclconf/go-cty v1.8.0 // indirect
+	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.31.0 // indirect
+	go.opentelemetry.io/otel/exporters/jaeger v1.6.3 // indirect
+	go.opentelemetry.io/otel/sdk v1.6.3 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.7.0 // indirect
 	go.uber.org/ratelimit v0.1.0 // indirect
