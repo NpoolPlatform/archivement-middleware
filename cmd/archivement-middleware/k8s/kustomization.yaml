@@ -2,6 +2,4 @@ resources:
   - 01-archivement-middleware.viper.yaml
   - 02-archivement-middleware.yaml
   - 03-strip-prefix.yaml
-  - 04-traefik-ingress.yaml
-  - 05-traefik-vpn-ingress.yaml
-  - 06-service-monitor.yaml
+  - 04-service-monitor.yaml
