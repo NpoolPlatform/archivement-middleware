@@ -22,6 +22,8 @@ import (
 
 	cruder "github.com/NpoolPlatform/libent-cruder/pkg/cruder"
 
+	errno "github.com/NpoolPlatform/archivement-middleware/pkg/errno"
+
 	"github.com/shopspring/decimal"
 
 	"github.com/google/uuid"
@@ -130,7 +132,7 @@ func BookKeeping(ctx context.Context, in *detailmgrpb.DetailReq) error { //nolin
 		return err
 	}
 	if exist {
-		return fmt.Errorf("already exist")
+		return errno.ErrAlreadyExists
 	}
 
 	return db.WithTx(ctx, func(ctx context.Context, tx *ent.Tx) error {

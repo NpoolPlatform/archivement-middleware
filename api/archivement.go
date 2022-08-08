@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+	"errors"
 
 	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
 
@@ -10,6 +11,8 @@ import (
 	"github.com/NpoolPlatform/archivement-manager/api/detail"
 
 	archivement1 "github.com/NpoolPlatform/archivement-middleware/pkg/archivement"
+
+	errno "github.com/NpoolPlatform/archivement-middleware/pkg/errno"
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -23,6 +26,9 @@ func (s *Server) BookKeeping(ctx context.Context, in *npool.BookKeepingRequest) 
 
 	if err := archivement1.BookKeeping(ctx, in.GetInfo()); err != nil {
 		logger.Sugar().Errorw("BookKeeping", "error", err)
+		if errors.Is(err, errno.ErrAlreadyExists) {
+			return &npool.BookKeepingResponse{}, status.Error(codes.AlreadyExists, err.Error())
+		}
 		return &npool.BookKeepingResponse{}, status.Error(codes.Internal, err.Error())
 	}
 
