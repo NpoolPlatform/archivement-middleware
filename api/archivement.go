@@ -3,6 +3,9 @@ package api
 import (
 	"context"
 	"errors"
+	"fmt"
+
+	"github.com/google/uuid"
 
 	"github.com/NpoolPlatform/go-service-framework/pkg/logger"
 
@@ -33,4 +36,17 @@ func (s *Server) BookKeeping(ctx context.Context, in *npool.BookKeepingRequest) 
 	}
 
 	return &npool.BookKeepingResponse{}, nil
+}
+
+func (s *Server) Delete(ctx context.Context, in *npool.DeleteRequest) (*npool.DeleteResponse, error) {
+	if _, err := uuid.Parse(in.GetOrderID()); err != nil {
+		logger.Sugar().Errorw("validate", "OrderID", in.GetOrderID(), "error", err)
+		return &npool.DeleteResponse{}, status.Error(codes.InvalidArgument, fmt.Sprintf("CoinTypeID is invalid: %v", err))
+	}
+
+	if err := archivement1.Delete(ctx, in.GetOrderID()); err != nil {
+		return &npool.DeleteResponse{}, status.Error(codes.Internal, err.Error())
+	}
+
+	return &npool.DeleteResponse{}, nil
 }

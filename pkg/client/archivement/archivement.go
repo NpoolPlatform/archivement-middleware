@@ -1,3 +1,4 @@
+//nolint
 package archivement
 
 import (
@@ -37,6 +38,20 @@ func BookKeeping(ctx context.Context, in *detailpb.DetailReq) error {
 	_, err := withCRUD(ctx, func(_ctx context.Context, cli npool.MiddlewareClient) (cruder.Any, error) {
 		_, err := cli.BookKeeping(ctx, &npool.BookKeepingRequest{
 			Info: in,
+		})
+		if err != nil {
+			return nil, err
+		}
+
+		return nil, nil
+	})
+	return err
+}
+
+func Delete(ctx context.Context, orderID string) error {
+	_, err := withCRUD(ctx, func(_ctx context.Context, cli npool.MiddlewareClient) (cruder.Any, error) {
+		_, err := cli.Delete(ctx, &npool.DeleteRequest{
+			OrderID: orderID,
 		})
 		if err != nil {
 			return nil, err
