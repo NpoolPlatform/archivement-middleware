@@ -10,11 +10,9 @@ import (
 	"github.com/NpoolPlatform/archivement-manager/pkg/db/ent"
 	"github.com/NpoolPlatform/archivement-manager/pkg/db/ent/general"
 
-	detailcli "github.com/NpoolPlatform/archivement-manager/pkg/client/detail"
 	detailcrud "github.com/NpoolPlatform/archivement-manager/pkg/crud/detail"
 	detailmgrpb "github.com/NpoolPlatform/message/npool/inspire/mgr/v1/archivement/detail"
 
-	generalcli "github.com/NpoolPlatform/archivement-manager/pkg/client/general"
 	generalcrud "github.com/NpoolPlatform/archivement-manager/pkg/crud/general"
 	generalmgrpb "github.com/NpoolPlatform/message/npool/inspire/mgr/v1/archivement/general"
 
@@ -38,7 +36,7 @@ func TryCreateGeneral(ctx context.Context, appID, userID, goodID, coinTypeID str
 		_ = redis2.Unlock(key)
 	}()
 
-	general1, err := generalcli.GetGeneralOnly(ctx, &generalmgrpb.Conds{
+	general1, err := generalcrud.RowOnly(ctx, &generalmgrpb.Conds{
 		AppID: &commonpb.StringVal{
 			Op:    cruder.EQ,
 			Value: appID,
@@ -60,10 +58,10 @@ func TryCreateGeneral(ctx context.Context, appID, userID, goodID, coinTypeID str
 		return "", err
 	}
 	if general1 != nil {
-		return general1.ID, nil
+		return general1.ID.String(), nil
 	}
 
-	general1, err = generalcli.CreateGeneral(ctx, &generalmgrpb.GeneralReq{
+	general1, err = generalcrud.Create(ctx, &generalmgrpb.GeneralReq{
 		AppID:      &appID,
 		UserID:     &userID,
 		GoodID:     &goodID,
@@ -73,7 +71,7 @@ func TryCreateGeneral(ctx context.Context, appID, userID, goodID, coinTypeID str
 		return "", err
 	}
 
-	return general1.ID, nil
+	return general1.ID.String(), nil
 }
 
 func detailKey(in *detailmgrpb.DetailReq) string {
@@ -110,7 +108,7 @@ func BookKeeping(ctx context.Context, in *detailmgrpb.DetailReq) error { //nolin
 		_ = redis2.Unlock(key)
 	}()
 
-	exist, err := detailcli.ExistDetailConds(ctx, &detailmgrpb.Conds{
+	exist, err := detailcrud.ExistConds(ctx, &detailmgrpb.Conds{
 		AppID: &commonpb.StringVal{
 			Op:    cruder.EQ,
 			Value: in.GetAppID(),
