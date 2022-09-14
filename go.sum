@@ -71,8 +71,8 @@ github.com/Masterminds/sprig v2.15.0+incompatible/go.mod h1:y6hNFY5UBTIWBxnzTeuN
 github.com/Masterminds/sprig v2.22.0+incompatible/go.mod h1:y6hNFY5UBTIWBxnzTeuNhlNS5hqE0NB0E6fgfo2Br3o=
 github.com/NpoolPlatform/api-manager v0.0.0-20220826022307-d72866fe3ec0 h1:yIEwS7NTQhBBmfpf6yigvPCbxffMOrtBK/yUPM5ukbo=
 github.com/NpoolPlatform/api-manager v0.0.0-20220826022307-d72866fe3ec0/go.mod h1:+Xj8fVgWZWGakBtqZbFn/zY0qd47AywCjLPOGdTqJDU=
-github.com/NpoolPlatform/archivement-manager v0.0.0-20220906064121-0547dac77189 h1:Fmf+48iq3tTvCAzm6VG+8Fn8KufzskupcmmIft+OUto=
-github.com/NpoolPlatform/archivement-manager v0.0.0-20220906064121-0547dac77189/go.mod h1:nteiIshd9G9EfnayZdeNtMr0OsCn7/NWoliMlP2cq9M=
+github.com/NpoolPlatform/archivement-manager v0.0.0-20220907024948-5cd4bd739c46 h1:f8h+HNWfbF9jOUMhanb/lI/UbQIXZBryJ44kURmq2Rk=
+github.com/NpoolPlatform/archivement-manager v0.0.0-20220907024948-5cd4bd739c46/go.mod h1:Lg3sHl5QRBMTd8DGao27BHeyfizzWcYZaqn9NCmQP28=
 github.com/NpoolPlatform/cloud-hashing-inspire v0.0.0-20220724104912-5495b0c02d63 h1:7An2Wwkz+eiRWPiHdkdT8f1lMMfQveFJUsTSO76Tai8=
 github.com/NpoolPlatform/cloud-hashing-inspire v0.0.0-20220724104912-5495b0c02d63/go.mod h1:9BYfVsnbQEJrwOYpJgE0ycq/bONhkO1nfJ8YGFCxZT8=
 github.com/NpoolPlatform/go-service-framework v0.0.0-20220818105452-9457611ae070 h1:BARdOYP/2s4Oxk7GnM0oXw5oSGevx2TZL+wPfgPz7Nc=
